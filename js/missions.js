@@ -1,22 +1,24 @@
+════════════════════════════════════════════════════════════
+ 
 // ═══════════════════════════════════════
 // FINANCINHAS – MOTOR DE MISSÕES
 // story_choice, sort, piggy, budget
 // ═══════════════════════════════════════
-
+ 
 let CURRENT_MISSION = null;
-
+ 
 // ── Lançar missão ──────────────────────
 function launchMission(mission) {
   CURRENT_MISSION = mission;
   showScreen('screen-mission');
-
+ 
   const char = GAME_DATA.characters[mission.character];
   document.getElementById('mission-title').textContent = mission.title;
   document.getElementById('mission-coins').textContent = GAME_STATE.coins;
-
+ 
   const content = document.getElementById('mission-content');
   content.innerHTML = '';
-
+ 
   switch (mission.type) {
     case 'story_choice': renderStoryChoice(mission, content, char); break;
     case 'sort':         renderSort(mission, content, char);        break;
@@ -25,7 +27,7 @@ function launchMission(mission) {
     default:             renderStoryChoice(mission, content, char);
   }
 }
-
+ 
 // ══════════════════════════════════════
 // TIPO 1: HISTÓRIA + ESCOLHA MÚLTIPLA
 // ══════════════════════════════════════
@@ -51,22 +53,22 @@ function renderStoryChoice(mission, container, char) {
   `;
   container.appendChild(div);
 }
-
+ 
 let choiceAnswered = false;
-
+ 
 function handleChoice(index) {
   if (choiceAnswered) return;
   choiceAnswered = true;
-
+ 
   const m = CURRENT_MISSION;
   const choice = m.content.choices[index];
   const btn = document.getElementById('choice-' + index);
   const feedback = document.getElementById('feedback-area');
   const nextArea = document.getElementById('next-btn-area');
-
+ 
   // Marca resposta
   btn.classList.add(choice.correct ? 'correct' : 'wrong');
-
+ 
   // Mostra feedback
   feedback.innerHTML = `
     <div class="feedback-box ${choice.correct ? 'correct' : 'wrong'}">
@@ -74,7 +76,7 @@ function handleChoice(index) {
       <p>${choice.feedback}</p>
     </div>
   `;
-
+ 
   // Botão continuar
   const coinsEarned = choice.correct ? m.coinsReward : Math.floor(m.coinsReward * 0.3);
   nextArea.innerHTML = `
@@ -82,7 +84,7 @@ function handleChoice(index) {
       ${choice.correct ? '🌟 Próxima missão!' : '💪 Continuar assim!'}
     </button>
   `;
-
+ 
   // Animação nos botões errados
   if (choice.correct) {
     document.querySelectorAll('.choice-btn').forEach((b, i) => {
@@ -91,10 +93,10 @@ function handleChoice(index) {
       }
     });
   }
-
+ 
   choiceAnswered = false; // Permite clicar em continuar
 }
-
+ 
 // ══════════════════════════════════════
 // TIPO 2: CLASSIFICAÇÃO (SORT/DRAG)
 // ══════════════════════════════════════
@@ -102,7 +104,7 @@ function renderSort(mission, container, char) {
   const c = mission.content;
   const div = document.createElement('div');
   div.className = 'mission-card';
-
+ 
   const itemsHTML = c.items.map(item => `
     <div class="sort-item" id="sort-item-${item.id}" data-id="${item.id}" data-cat="${item.category !== undefined ? item.category : ''}"
       onclick="handleSortClick('${item.id}')">
@@ -110,14 +112,14 @@ function renderSort(mission, container, char) {
       <span>${item.name}</span>
     </div>
   `).join('');
-
+ 
   const colsHTML = c.categories.map((cat, i) => `
     <div class="sort-col">
       <div class="sort-col-title">${cat}</div>
       <div class="sort-drop-zone" id="zone-${i}" data-zone="${i}"></div>
     </div>
   `).join('');
-
+ 
   div.innerHTML = `
     <div class="mission-char">${char ? char.emoji : '🧒'}</div>
     <div class="mission-char-name">${char ? char.name : ''}</div>
@@ -130,20 +132,20 @@ function renderSort(mission, container, char) {
   `;
   container.appendChild(div);
 }
-
+ 
 let selectedSortItem = null;
-
+ 
 function handleSortClick(itemId) {
   const item = document.getElementById('sort-item-' + itemId);
   if (!item) return;
-
+ 
   if (selectedSortItem && selectedSortItem.id === item.id) {
     // Deselect
     item.style.border = '2px solid #e0e0e0';
     selectedSortItem = null;
     return;
   }
-
+ 
   // Check if clicking a zone zone
   if (item.dataset.inzone !== undefined) {
     // Move back to source
@@ -157,35 +159,35 @@ function handleSortClick(itemId) {
     selectedSortItem = null;
     return;
   }
-
+ 
   // Select item
   if (selectedSortItem) selectedSortItem.style.border = '2px solid #e0e0e0';
   selectedSortItem = item;
   item.style.border = '2px solid var(--primary)';
   item.style.background = 'var(--primary-light)';
-
+ 
   // Show zone selection prompt
   showToast('Agora clique na coluna onde quer colocar este item!');
-
+ 
   // Add click to zones
   document.querySelectorAll('.sort-drop-zone').forEach(zone => {
     zone.onclick = () => dropItemInZone(zone);
   });
 }
-
+ 
 function dropItemInZone(zone) {
   if (!selectedSortItem) return;
-
+ 
   zone.appendChild(selectedSortItem);
   selectedSortItem.dataset.inzone = zone.dataset.zone;
   selectedSortItem.style.border = '2px solid #e0e0e0';
   selectedSortItem.style.background = '#fff';
   selectedSortItem.onclick = () => handleSortClick(selectedSortItem.dataset.id);
   selectedSortItem = null;
-
+ 
   // Remove zone onclick
   document.querySelectorAll('.sort-drop-zone').forEach(z => z.onclick = null);
-
+ 
   // Check if all placed
   const totalItems = CURRENT_MISSION.content.items.length;
   const placed = document.querySelectorAll('[data-inzone]').length;
@@ -193,11 +195,11 @@ function dropItemInZone(zone) {
     checkSortAnswer();
   }
 }
-
+ 
 function checkSortAnswer() {
   const items = CURRENT_MISSION.content.items;
   let correct = 0;
-
+ 
   items.forEach(item => {
     const el = document.getElementById('sort-item-' + item.id);
     if (!el) return;
@@ -212,11 +214,11 @@ function checkSortAnswer() {
       el.style.background = '#FFEBEE';
     }
   });
-
+ 
   const total = items.length;
   const pct = Math.round((correct / total) * 100);
   const coinsEarned = Math.round(CURRENT_MISSION.coinsReward * (pct / 100));
-
+ 
   document.getElementById('sort-feedback').innerHTML = `
     <div class="feedback-box ${pct >= 70 ? 'correct' : 'wrong'}" style="margin-top:16px">
       <strong>${pct >= 70 ? '🎉 Ótimo trabalho!' : '💭 Bom esforço!'}</strong>
@@ -224,14 +226,14 @@ function checkSortAnswer() {
       ${pct < 100 ? '<p>Itens em vermelho precisam ir para a outra coluna!</p>' : ''}
     </div>
   `;
-
+ 
   document.getElementById('sort-next').innerHTML = `
     <button class="btn-primary" style="margin-top:12px" onclick="finishMission(${CURRENT_MISSION.id}, ${coinsEarned}, '${pct >= 70}')">
       ${pct >= 70 ? '🌟 Continuar!' : '💪 Continuar assim!'}
     </button>
   `;
 }
-
+ 
 // ══════════════════════════════════════
 // TIPO 3: COFRINHO (CLIQUE)
 // ══════════════════════════════════════
@@ -239,7 +241,7 @@ function renderPiggy(mission, container, char) {
   const c = mission.content;
   let count = 0;
   const target = c.target || 10;
-
+ 
   const div = document.createElement('div');
   div.className = 'mission-card';
   div.innerHTML = `
@@ -260,35 +262,35 @@ function renderPiggy(mission, container, char) {
     <div id="piggy-next"></div>
   `;
   container.appendChild(div);
-
+ 
   // Store count in closure
   window._piggyCount = 0;
   window._piggyTarget = target;
 }
-
+ 
 function clickPiggy() {
   const target = window._piggyTarget || 10;
   window._piggyCount = (window._piggyCount || 0) + 1;
   const count = window._piggyCount;
-
+ 
   // Update counter
   const countEl = document.getElementById('piggy-count');
   if (countEl) countEl.textContent = count;
-
+ 
   // Update bar
   const bar = document.getElementById('piggy-bar');
   if (bar) bar.style.width = Math.min(100, (count / target) * 100) + '%';
-
+ 
   // Animate piggy
   const piggy = document.getElementById('piggy-icon');
   if (piggy) {
     piggy.style.transform = 'scale(1.2) rotate(10deg)';
     setTimeout(() => { piggy.style.transform = 'scale(1) rotate(0)'; }, 200);
   }
-
+ 
   // Coin rain
   spawnCoin();
-
+ 
   // Check complete
   if (count >= target) {
     const nextArea = document.getElementById('piggy-next');
@@ -305,7 +307,7 @@ function clickPiggy() {
     }
   }
 }
-
+ 
 function spawnCoin() {
   const rain = document.getElementById('coin-rain');
   if (!rain) return;
@@ -317,18 +319,18 @@ function spawnCoin() {
   rain.appendChild(coin);
   setTimeout(() => coin.remove(), 1000);
 }
-
+ 
 // ══════════════════════════════════════
 // TIPO 4: ORÇAMENTO (BUDGET)
 // ══════════════════════════════════════
 let budgetSelected = [];
 let budgetTotal = 0;
-
+ 
 function renderBudget(mission, container, char) {
   const c = mission.content;
   budgetSelected = [];
   budgetTotal = 0;
-
+ 
   const div = document.createElement('div');
   div.className = 'mission-card';
   div.innerHTML = `
@@ -362,12 +364,12 @@ function renderBudget(mission, container, char) {
   `;
   container.appendChild(div);
 }
-
+ 
 function toggleBudgetItem(index) {
   const item = CURRENT_MISSION.content.items[index];
   const el = document.getElementById('shop-' + index);
   const budget = CURRENT_MISSION.content.budget;
-
+ 
   if (budgetSelected.includes(index)) {
     // Remove
     budgetSelected = budgetSelected.filter(i => i !== index);
@@ -385,7 +387,7 @@ function toggleBudgetItem(index) {
     budgetTotal += item.price;
     el.classList.add('selected');
   }
-
+ 
   // Update bar
   const pct = (budgetTotal / budget) * 100;
   const fill = document.getElementById('budget-fill');
@@ -396,19 +398,19 @@ function toggleBudgetItem(index) {
   }
   if (spent) spent.textContent = budgetTotal.toFixed(2).replace('.', ',');
 }
-
+ 
 function checkBudget() {
   const c = CURRENT_MISSION.content;
   if (budgetSelected.length === 0) {
     showToast('Escolha pelo menos um item!');
     return;
   }
-
+ 
   const items = budgetSelected.map(i => c.items[i]);
   const healthyCount = items.filter(i => i.healthy).length;
   const withinBudget = budgetTotal <= c.budget;
   const success = withinBudget && healthyCount >= Math.ceil(items.length / 2);
-
+ 
   const feedback = document.getElementById('budget-feedback');
   feedback.innerHTML = `
     <div class="feedback-box ${success ? 'correct' : 'wrong'}">
@@ -422,24 +424,24 @@ function checkBudget() {
       ${success ? '🌟 Continuar!' : '💪 Continuar!'}
     </button>
   `;
-
+ 
   // Remove check button
   const checkBtn = document.querySelector('.mission-content .btn-primary:not(#budget-feedback .btn-primary)');
 }
-
+ 
 // ══════════════════════════════════════
 // FINALIZAR MISSÃO
 // ══════════════════════════════════════
 function finishMission(missionId, coinsEarned, wasCorrect) {
   completeMission(missionId, coinsEarned);
-
+ 
   const mission = MISSIONS.find(m => m.id === missionId);
   const isLastInTrail = mission && MISSIONS.filter(m => m.trail === mission.trail)
     .every(m => GAME_STATE.completedMissions.includes(m.id));
-
+ 
   // Update coins display in mission header
   document.getElementById('mission-coins').textContent = GAME_STATE.coins;
-
+ 
   // Verifica se é a última missão da trilha
   if (isLastInTrail) {
     showCompleteModal(
@@ -467,3 +469,4 @@ function finishMission(missionId, coinsEarned, wasCorrect) {
     }, 1500);
   }
 }
+ 
