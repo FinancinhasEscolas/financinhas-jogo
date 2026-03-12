@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
+ 
 <!-- ══════════════════════════════════════════
      TELA 0 — LOGIN / CADASTRO
 ══════════════════════════════════════════ -->
@@ -24,12 +24,12 @@
         <span>Financinhas<br><small>nas Escolas</small></span>
       </div>
       <div class="logo-sicoob">
-        <img src="assets/logo-sicoob.png" alt="Sicoob Credivertentes" class="sicoob-img" />
+        <img src="Credivertentes (Vertical Multicor).png" alt="Sicoob Credivertentes" class="sicoob-img" />
       </div>
     </div>
     <h1 class="game-title">Missão dos Sonhos</h1>
     <p class="login-sub">A aventura financeira começa aqui! 🚀</p>
-
+ 
     <div id="login-form" class="form-box">
       <h3>Entrar na aventura</h3>
       <input type="email" id="login-email" placeholder="E-mail do responsável" />
@@ -37,7 +37,7 @@
       <button class="btn-primary" onclick="doLogin()">🎮 Jogar!</button>
       <p class="link-alt">Ainda não tem conta? <a href="#" onclick="showScreen('screen-register')">Cadastrar</a></p>
     </div>
-
+ 
     <div id="register-form" class="form-box hidden">
       <h3>Criar conta familiar</h3>
       <input type="text" id="reg-parent" placeholder="Nome do responsável" />
@@ -57,17 +57,17 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════════════════
      TELA 1 — CRIADOR DE AVATAR (The Sims style)
 ══════════════════════════════════════════ -->
 <div id="screen-avatar" class="screen">
   <div class="screen-header sky-header">
-    <div class="logos-mini"><span class="logo-mini-f">💰 Financinhas</span><img src="assets/logo-sicoob.png" alt="Sicoob Credivertentes" class="sicoob-mini-img" /></div>
+    <div class="logos-mini"><span class="logo-mini-f">💰 Financinhas</span><img src="Credivertentes (Vertical Multicor).png" alt="Sicoob Credivertentes" class="sicoob-mini-img" /></div>
     <h2>Monte seu personagem!</h2>
     <p>Escolha como você vai aparecer no jogo 🎨</p>
   </div>
-
+ 
   <div class="avatar-studio">
     <!-- Preview do avatar -->
     <div class="avatar-preview-box">
@@ -83,10 +83,10 @@
       </div>
       <div class="avatar-name-tag" id="avatar-name-tag">Seu personagem</div>
     </div>
-
+ 
     <!-- Painel de customização -->
     <div class="avatar-options">
-
+ 
       <div class="av-section">
         <h4>🎨 Cor da pele</h4>
         <div class="color-row" id="skin-picker">
@@ -97,7 +97,7 @@
           <button class="skin-btn" data-skin="skin5" style="background:#5C3317" onclick="setSkin(this,'#5C3317','skin5')"></button>
         </div>
       </div>
-
+ 
       <div class="av-section">
         <h4>💇 Cabelo</h4>
         <div class="item-row" id="hair-picker">
@@ -115,7 +115,7 @@
           <button class="skin-btn" style="background:#FF69B4" onclick="setHairColor(this,'#FF69B4')"></button>
         </div>
       </div>
-
+ 
       <div class="av-section">
         <h4>👕 Roupa</h4>
         <div class="item-row" id="clothes-picker">
@@ -126,7 +126,7 @@
           <button class="item-btn" onclick="setClothes(this,'clothes5','#F48FB1')">👘</button>
         </div>
       </div>
-
+ 
       <div class="av-section">
         <h4>😊 Olhos</h4>
         <div class="item-row" id="eyes-picker">
@@ -136,7 +136,7 @@
           <button class="item-btn" onclick="setEyes(this,'eyes4')">😎</button>
         </div>
       </div>
-
+ 
       <div class="av-section">
         <h4>✨ Acessório</h4>
         <div class="item-row" id="acc-picker">
@@ -147,12 +147,12 @@
           <button class="item-btn" onclick="setAccessory(this,'bow')">🎀</button>
         </div>
       </div>
-
+ 
       <button class="btn-primary btn-big" onclick="saveAvatar()">Pronto! Vamos jogar! 🚀</button>
     </div>
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════════════════
      TELA 2 — CIDADE (MAPA PRINCIPAL)
 ══════════════════════════════════════════ -->
@@ -160,7 +160,7 @@
   <div class="city-topbar">
     <div class="logos-mini">
       <span class="logo-mini-f">💰 Financinhas</span>
-      <img src="assets/logo-sicoob.png" alt="Sicoob Credivertentes" class="sicoob-mini-img" />
+      <img src="Credivertentes (Vertical Multicor).png" alt="Sicoob Credivertentes" class="sicoob-mini-img" />
     </div>
     <div class="player-hud">
       <div class="hud-avatar" id="hud-avatar">🧒</div>
@@ -174,21 +174,21 @@
       <button class="btn-icon" onclick="showProgress()" title="Meu progresso">📊</button>
     </div>
   </div>
-
+ 
   <!-- Sonho atual -->
   <div class="dream-bar" id="dream-bar">
     <span>🌟 Sonho: <strong id="dream-name">Nenhum ainda</strong></span>
     <div class="dream-progress-bar"><div class="dream-fill" id="dream-fill" style="width:0%"></div></div>
     <span id="dream-pct">0%</span>
   </div>
-
+ 
   <!-- Mapa da cidade -->
   <div class="city-map">
     <div class="city-sky">
       <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
       <div class="sun">☀️</div>
     </div>
-
+ 
     <div class="city-grid">
       <div class="city-place" onclick="enterPlace('home')" style="--c:#FFD54F">
         <div class="place-icon">🏠</div>
@@ -221,7 +221,7 @@
         <div class="place-lock">🔒</div>
       </div>
     </div>
-
+ 
     <!-- Personagens flutuantes -->
     <div class="city-characters">
       <div class="char-float" style="left:10%;animation-delay:0s">
@@ -237,7 +237,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════════════════
      TELA 3 — MISSÃO (MINI-JOGO)
 ══════════════════════════════════════════ -->
@@ -247,12 +247,12 @@
     <div class="mission-title" id="mission-title">Missão</div>
     <div class="mission-coins">💰 <span id="mission-coins">0</span></div>
   </div>
-
+ 
   <div class="mission-content" id="mission-content">
     <!-- Preenchido dinamicamente -->
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════════════════
      TELA 4 — PAINEL DOS PAIS
 ══════════════════════════════════════════ -->
@@ -260,7 +260,7 @@
   <div class="screen-header">
     <button class="btn-back" onclick="backToCity()">← Voltar</button>
     <h2>👨‍👩‍👧 Painel dos Responsáveis</h2>
-    <img src="assets/logo-sicoob.png" alt="Sicoob Credivertentes" class="sicoob-header-img" />
+    <img src="Credivertentes (Vertical Multicor).png" alt="Sicoob Credivertentes" class="sicoob-header-img" />
   </div>
   <div class="parent-body">
     <div class="parent-card">
@@ -272,7 +272,7 @@
         <div class="stat-box"><div class="stat-num" id="stat-time">0min</div><div>Hoje</div></div>
       </div>
     </div>
-
+ 
     <div class="parent-card">
       <h3>🌟 Sonho da criança</h3>
       <div id="dream-display">
@@ -280,7 +280,7 @@
       </div>
       <button class="btn-secondary" onclick="showDreamSetup()">✏️ Cadastrar / Editar Sonho</button>
     </div>
-
+ 
     <div class="parent-card">
       <h3>📈 Habilidades desenvolvidas</h3>
       <div class="skill-bars">
@@ -291,14 +291,14 @@
         <div class="skill-row"><span>Planejamento</span><div class="skill-bar"><div class="skill-fill" id="sk5" style="width:0%"></div></div></div>
       </div>
     </div>
-
+ 
     <div class="parent-card">
       <h3>🏅 Conquistas recentes</h3>
       <div id="achievements-list"></div>
     </div>
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════════════════
      MODAL — CADASTRO DO SONHO (senha obrigatória)
 ══════════════════════════════════════════ -->
@@ -315,7 +315,7 @@
     </div>
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════════════════
      MODAL — TEMPO DE TELA (1 hora)
 ══════════════════════════════════════════ -->
@@ -332,7 +332,7 @@
     <p class="warning-tip">💡 Dica: Pausas são saudáveis! Volte depois de descansar.</p>
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════════════════
      MODAL — RECOMPENSA
 ══════════════════════════════════════════ -->
@@ -345,7 +345,7 @@
     <button class="btn-primary" onclick="closeModal('modal-reward')">Continuar! 🚀</button>
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════════════════
      MODAL — MISSÃO COMPLETA
 ══════════════════════════════════════════ -->
@@ -358,10 +358,11 @@
     <button class="btn-primary" onclick="closeModal('modal-complete');backToCity()">Explorar a cidade! 🗺️</button>
   </div>
 </div>
-
+ 
 <script src="js/data.js"></script>
 <script src="js/avatar.js"></script>
 <script src="js/game.js"></script>
 <script src="js/missions.js"></script>
 </body>
 </html>
+ 
