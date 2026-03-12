@@ -1,9 +1,11 @@
-/ ═══════════════════════════════════════
+════════════════════════════════════════════════════════════
+ 
+// ═══════════════════════════════════════
 // FINANCINHAS – MOTOR DO JOGO
 // Login, Progresso, Tempo de Tela,
 // Painel dos Pais, Sistema de Moedas
 // ═══════════════════════════════════════
-
+ 
 // ── Estado Global ──
 let GAME_STATE = {
   user: null,        // { email, parentName, childName, grade, password }
@@ -16,26 +18,25 @@ let GAME_STATE = {
   screenTimeWarned: false,
   trailProgress: { 1:0, 2:0, 3:0, 4:0, 5:0 }
 };
-
+ 
 // ── Inicialização ──────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   loadGame();
   AvatarSystem.load();
   AvatarSystem.render();
-
+ 
   // Timer de tempo de tela
   setInterval(checkScreenTime, 60000); // checa a cada minuto
   GAME_STATE.sessionStart = Date.now();
 });
-
+ 
 // ── ARMAZENAMENTO ──────────────────────
 function saveGame() {
   try {
     localStorage.setItem('financinhas_state', JSON.stringify(GAME_STATE));
   } catch(e) {}
 }
-function mostrarCadastro(){
-
+ 
 function loadGame() {
   try {
     const saved = localStorage.getItem('financinhas_state');
@@ -54,45 +55,39 @@ function loadGame() {
     }
   } catch(e) {}
 }
-document.getElementById("login").style.display="none"
-document.getElementById("cadastro").style.display="block"
-
+ 
 // ── NAVEGAÇÃO DE TELAS ─────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   const screen = document.getElementById(id);
   if (screen) screen.classList.add('active');
 }
-
+ 
 // ── LOGIN ──────────────────────────────
 function doLogin() {
   const email = document.getElementById('login-email').value.trim();
   const pass  = document.getElementById('login-pass').value;
   if (!email || !pass) { showToast('Preencha e-mail e senha!'); return; }
-
+ 
   const stored = loadUser(email);
   if (!stored) { showToast('Conta não encontrada. Cadastre-se!'); return; }
   if (stored.password !== pass) { showToast('Senha incorreta!'); return; }
-function cadastrar(){
-
+ 
   GAME_STATE.user = stored;
   loadUserProgress(email);
   enterGame();
 }
-let nome=document.getElementById("reg-nome").value
-let email=document.getElementById("reg-email").value
-let pass=document.getElementById("reg-pass").value
-
+ 
 function doRegister() {
   const parent = document.getElementById('reg-parent').value.trim();
   const email  = document.getElementById('reg-email').value.trim();
   const pass   = document.getElementById('reg-pass').value;
   const child  = document.getElementById('reg-child').value.trim();
   const grade  = document.getElementById('reg-grade').value;
-
+ 
   if (!parent||!email||!pass||!child||!grade) { showToast('Preencha todos os campos!'); return; }
   if (pass.length < 4) { showToast('Senha precisa ter pelo menos 4 caracteres!'); return; }
-
+ 
   const user = { parentName: parent, email, password: pass, childName: child, grade };
   saveUser(email, user);
   GAME_STATE.user = user;
@@ -102,8 +97,7 @@ function doRegister() {
   showToast(`Bem-vindo(a), ${child}! 🎉`);
   setTimeout(() => showScreen('screen-avatar'), 800);
 }
-let user={
-
+ 
 function saveUser(email, data) {
   try { localStorage.setItem('fu_user_' + email, JSON.stringify(data)); } catch(e) {}
 }
@@ -122,11 +116,7 @@ function loadUserProgress(email) {
     }
   }
 }
-nome:nome,
-email:email,
-pass:pass,
-moedas:0
-
+ 
 function enterGame() {
   if (!GAME_STATE.user) return;
   updateHUD();
@@ -134,7 +124,7 @@ function enterGame() {
   updatePlaceBadges();
   showScreen('screen-city');
 }
-
+ 
 // ── HUD ────────────────────────────────
 function updateHUD() {
   const name = document.getElementById('hud-name');
@@ -145,8 +135,7 @@ function updateHUD() {
   const hud = document.getElementById('hud-avatar');
   if (hud) hud.textContent = AvatarSystem.getHudEmoji();
 }
-localStorage.setItem("user",JSON.stringify(user))
-
+ 
 // ── MOEDAS ─────────────────────────────
 function addCoins(amount) {
   GAME_STATE.coins += amount;
@@ -156,8 +145,7 @@ function addCoins(amount) {
   // Checa conquistas de moedas
   if (GAME_STATE.coins >= 50) grantAchievement('saver');
 }
-alert("Conta criada!")
-
+ 
 // ── MISSÕES CONCLUÍDAS ─────────────────
 function completeMission(missionId, coinsEarned) {
   if (!GAME_STATE.completedMissions.includes(missionId)) {
@@ -169,9 +157,7 @@ function completeMission(missionId, coinsEarned) {
     saveGame();
   }
 }
-document.getElementById("cadastro").style.display="none"
-document.getElementById("login").style.display="block"
-
+ 
 function updateTrailProgress() {
   MISSIONS.forEach(m => {
     if (GAME_STATE.completedMissions.includes(m.id)) {
@@ -181,7 +167,7 @@ function updateTrailProgress() {
       GAME_STATE.trailProgress[trail] = Math.round((done / trailMissions.length) * 100);
     }
   });
-
+ 
   // Conquistas por trilha completa
   for (let t = 1; t <= 5; t++) {
     if (GAME_STATE.trailProgress[t] === 100) {
@@ -190,7 +176,7 @@ function updateTrailProgress() {
     }
   }
 }
-
+ 
 function updatePlaceBadges() {
   GAME_DATA.places && Object.entries(GAME_DATA.places).forEach(([key, place]) => {
     const badge = document.getElementById('badge-' + key);
@@ -203,7 +189,7 @@ function updatePlaceBadges() {
     }
   });
 }
-
+ 
 // ── SONHO ──────────────────────────────
 function updateDreamBar() {
   const dream = GAME_STATE.dream;
@@ -220,25 +206,22 @@ function updateDreamBar() {
     grantAchievement('dreamer');
   }
 }
-function login(){
-
+ 
 function showDreamSetup() {
   openModal('modal-dream');
 }
-let email=document.getElementById("login-email").value
-let pass=document.getElementById("login-pass").value
-
+ 
 function saveDream() {
   const pass = document.getElementById('dream-parent-pass').value;
   const item = document.getElementById('dream-item').value.trim();
   const cost = parseInt(document.getElementById('dream-cost').value);
-
+ 
   if (!pass || !item || !cost) { showToast('Preencha todos os campos!'); return; }
   if (!GAME_STATE.user || pass !== GAME_STATE.user.password) {
     showToast('Senha incorreta!'); return;
   }
   if (cost < 1) { showToast('Informe um valor válido em Moedas Coop!'); return; }
-
+ 
   GAME_STATE.dream = { name: item, cost };
   saveGame();
   updateDreamBar();
@@ -251,30 +234,28 @@ function saveDream() {
   document.getElementById('dream-item').value = '';
   document.getElementById('dream-cost').value = '';
 }
-let user=JSON.parse(localStorage.getItem("user"))
-
+ 
 // ── PAINEL DOS PAIS ────────────────────
 function showParentPanel() {
   updateParentPanel();
   showScreen('screen-parent');
 }
-if(!user){
-
+ 
 function updateParentPanel() {
   if (!GAME_STATE.user) return;
-
+ 
   document.getElementById('parent-child-name').textContent = GAME_STATE.user.childName || '-';
   document.getElementById('stat-missions').textContent = GAME_STATE.completedMissions.length;
   document.getElementById('stat-coins').textContent = GAME_STATE.coins;
-
+ 
   // Trilhas concluídas
   const trailsDone = Object.values(GAME_STATE.trailProgress).filter(p => p === 100).length;
   document.getElementById('stat-trails').textContent = trailsDone + '/5';
-
+ 
   // Tempo hoje
   const mins = GAME_STATE.sessionMinutes + Math.round((Date.now() - GAME_STATE.sessionStart) / 60000);
   document.getElementById('stat-time').textContent = mins + 'min';
-
+ 
   // Sonho
   const dreamDiv = document.getElementById('dream-display');
   if (GAME_STATE.dream) {
@@ -288,7 +269,7 @@ function updateParentPanel() {
       </div>
     `;
   }
-
+ 
   // Habilidades
   const sk = [
     GAME_STATE.trailProgress[1] || 0,
@@ -301,7 +282,7 @@ function updateParentPanel() {
     const el = document.getElementById('sk' + (i+1));
     if (el) el.style.width = v + '%';
   });
-
+ 
   // Conquistas
   const achList = document.getElementById('achievements-list');
   if (achList) {
@@ -321,14 +302,12 @@ function updateParentPanel() {
     }
   }
 }
-alert("Crie uma conta primeiro")
-
+ 
 function showProgress() {
   // Mostra progresso das trilhas inline
   showToast('📊 Use o Painel dos Responsáveis para ver o progresso completo!');
 }
-return
-
+ 
 // ── CONQUISTAS ─────────────────────────
 function grantAchievement(id) {
   if (GAME_STATE.achievements.includes(id)) return;
@@ -343,13 +322,13 @@ function grantAchievement(id) {
     '+' + achievement.coins + ' 💰'
   );
 }
-
+ 
 // ── TEMPO DE TELA ──────────────────────
 function checkScreenTime() {
   if (!GAME_STATE.user) return;
   const elapsed = Math.round((Date.now() - GAME_STATE.sessionStart) / 60000);
   const total = GAME_STATE.sessionMinutes + elapsed;
-
+ 
   if (total >= 60 && !GAME_STATE.screenTimeWarned) {
     GAME_STATE.screenTimeWarned = true;
     GAME_STATE.sessionMinutes = total;
@@ -357,8 +336,7 @@ function checkScreenTime() {
     openModal('modal-screentime');
   }
 }
-if(email==user.email && pass==user.pass){
-
+ 
 function unlockScreenTime() {
   const pass = document.getElementById('screentime-pass').value;
   if (!pass) { showToast('Digite a senha do responsável!'); return; }
@@ -374,74 +352,31 @@ function unlockScreenTime() {
   closeModal('modal-screentime');
   showToast('Continuando o jogo! 🎮 Lembre-se de fazer pausas! 💧');
 }
-document.getElementById("login").style.display="none"
-document.getElementById("avatar").style.display="block"
-
-}else{
-
-alert("Email ou senha incorretos")
-
+ 
 // ── MODAIS ─────────────────────────────
 function openModal(id) {
   const el = document.getElementById(id);
   if (el) el.classList.remove('hidden');
 }
-
+ 
 function closeModal(id) {
   const el = document.getElementById(id);
   if (el) el.classList.add('hidden');
 }
-
+ 
 function showRewardModal(title, msg, coins) {
   document.getElementById('reward-title').textContent = title;
   document.getElementById('reward-msg').textContent = msg;
   document.getElementById('reward-coins').textContent = coins;
   openModal('modal-reward');
-
-function escolher(nome){
-
-let user=JSON.parse(localStorage.getItem("user"))
-
-user.avatar=nome
-
-localStorage.setItem("user",JSON.stringify(user))
-
-document.getElementById("avatar").style.display="none"
-document.getElementById("cidade").style.display="block"
-
-document.getElementById("player").innerText="Jogador: "+nome
-
-document.getElementById("moedas").innerText=user.moedas
-
 }
-
+ 
 function showCompleteModal(msg, badge) {
   document.getElementById('complete-msg').textContent = msg;
   document.getElementById('earned-badge').textContent = badge || '';
   openModal('modal-complete');
-
-let perguntaAtual
-
-const perguntas=[
-
-{
-p:"Para que serve o dinheiro?",
-r:["Comprar coisas","Jogar fora"],
-c:0
-},
-
-{
-p:"O que é economizar?",
-r:["Guardar dinheiro","Gastar tudo"],
-c:0
-},
-
-{
-p:"Quem ajuda a guardar dinheiro?",
-r:["Banco ou cooperativa","Lixeira"],
-c:0
 }
-
+ 
 // ── TOAST ──────────────────────────────
 function showToast(msg) {
   let toast = document.querySelector('.toast');
@@ -454,25 +389,8 @@ function showToast(msg) {
   toast.classList.add('show');
   clearTimeout(toast._t);
   toast._t = setTimeout(() => toast.classList.remove('show'), 3000);
-]
-
-
-function missao(){
-
-document.getElementById("cidade").style.display="none"
-document.getElementById("missao").style.display="block"
-
-perguntaAtual=Math.floor(Math.random()*perguntas.length)
-
-let p=perguntas[perguntaAtual]
-
-document.getElementById("pergunta").innerText=p.p
-
-document.getElementById("a0").innerText=p.r[0]
-document.getElementById("a1").innerText=p.r[1]
-
 }
-
+ 
 // ── NAVEGAR PARA LUGAR ─────────────────
 function enterPlace(placeKey) {
   const place = GAME_DATA.places[placeKey];
@@ -484,40 +402,19 @@ function enterPlace(placeKey) {
   // Pega missões disponíveis deste lugar
   const placeMissions = MISSIONS.filter(m => m.place === placeKey);
   const nextMission = placeMissions.find(m => !GAME_STATE.completedMissions.includes(m.id));
-
+ 
   if (!nextMission) {
     showToast(`✅ Você completou todas as missões em ${place.name}!`);
     return;
   }
-
+ 
   launchMission(nextMission);
-
-function responder(op){
-
-let p=perguntas[perguntaAtual]
-
-if(op==p.c){
-
-alert("Acertou! ganhou 10 moedas")
-
-let user=JSON.parse(localStorage.getItem("user"))
-
-user.moedas+=10
-
-localStorage.setItem("user",JSON.stringify(user))
-
-document.getElementById("moedas").innerText=user.moedas
-
-}else{
-
-alert("Resposta errada")
-
 }
-
+ 
 function backToCity() {
   updateHUD();
   updateDreamBar();
   updatePlaceBadges();
   showScreen('screen-city');
-document.getElementById("missao").style.display="none"
-document.getElementById("cidade").style.display="block"
+}
+ 
