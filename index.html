@@ -1,134 +1,249 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Financinhas Jogo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
+<title>Financinhas – Missão dos Sonhos</title>
 
-body{
-font-family:Arial;
-background:#f3f4ff;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet">
 
-.box{
-background:white;
-padding:30px;
-border-radius:10px;
-width:320px;
-text-align:center;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
+<link rel="stylesheet" href="css/style.css">
 
-input{
-width:100%;
-padding:10px;
-margin:8px 0;
-border-radius:5px;
-border:1px solid #ccc;
-}
-
-button{
-width:100%;
-padding:10px;
-background:#6a1b9a;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
-button:hover{
-background:#4a148c;
-}
-
-.link{
-margin-top:10px;
-color:#555;
-cursor:pointer;
-}
-
-.hidden{
-display:none;
-}
-
-</style>
 </head>
-
 <body>
 
-<div class="box">
 
-<!-- LOGIN -->
-<div id="login">
+<!-- ========================================
+TELA LOGIN
+======================================== -->
 
-<h2>🎮 Financinhas</h2>
+<div id="screen-login" class="screen active">
 
-<input type="email" placeholder="Email do responsável">
+<div class="login-card">
 
-<input type="password" placeholder="Senha">
+<h1 class="game-title">Missão dos Sonhos</h1>
 
-<button onclick="login()">Jogar</button>
+<div id="login-form" class="form-box">
 
-<p class="link" onclick="mostrarCadastro()">Ainda não tem conta? Cadastrar</p>
+<h3>Entrar na aventura</h3>
 
-</div>
+<input type="email" id="login-email" placeholder="E-mail do responsável">
 
-<!-- CADASTRO -->
-<div id="cadastro" class="hidden">
+<input type="password" id="login-pass" placeholder="Senha">
 
-<h2>Criar conta</h2>
+<button class="btn-primary" onclick="doLogin()">🎮 Jogar!</button>
 
-<input id="nome" placeholder="Nome do aluno">
-
-<input id="email" placeholder="Email">
-
-<input id="senha" type="password" placeholder="Senha">
-
-<button onclick="cadastrar()">Criar conta</button>
-
-<p class="link" onclick="voltarLogin()">Voltar</p>
+<p class="link-alt">
+Ainda não tem conta?
+<a href="#" onclick="showRegister()">Cadastrar</a>
+</p>
 
 </div>
 
+
+<div id="register-form" class="form-box hidden">
+
+<h3>Criar conta familiar</h3>
+
+<input type="text" id="reg-parent" placeholder="Nome do responsável">
+
+<input type="email" id="reg-email" placeholder="E-mail do responsável">
+
+<input type="password" id="reg-pass" placeholder="Senha">
+
+<input type="text" id="reg-child" placeholder="Nome da criança">
+
+<select id="reg-grade">
+<option value="">Ano escolar</option>
+<option value="1">1º Ano</option>
+<option value="2">2º Ano</option>
+<option value="3">3º Ano</option>
+<option value="4">4º Ano</option>
+<option value="5">5º Ano</option>
+</select>
+
+<button class="btn-primary" onclick="doRegister()">✨ Criar conta!</button>
+
+<p class="link-alt">
+Já tem conta?
+<a href="#" onclick="showLogin()">Entrar</a>
+</p>
+
 </div>
+
+</div>
+
+</div>
+
+
+<!-- ========================================
+TELA AVATAR
+======================================== -->
+
+<div id="screen-avatar" class="screen">
+
+<h2>Monte seu personagem</h2>
+
+<p>Escolha como você vai aparecer no jogo</p>
+
+<button class="btn-primary" onclick="saveAvatar()">Pronto! Vamos jogar 🚀</button>
+
+</div>
+
+
+<!-- ========================================
+TELA CIDADE
+======================================== -->
+
+<div id="screen-city" class="screen">
+
+<h2>🌆 Cidade Financinhas</h2>
+
+<p>Bem-vindo à aventura!</p>
+
+<div class="city-grid">
+
+<button onclick="alert('Casa')">🏠 Casa</button>
+
+<button onclick="alert('Escola')">🏫 Escola</button>
+
+<button onclick="alert('Mercado')">🏪 Mercado</button>
+
+<button onclick="alert('Cooperativa')">🏦 Cooperativa</button>
+
+</div>
+
+</div>
+
+
+<script src="js/data.js"></script>
+<script src="js/avatar.js"></script>
+<script src="js/game.js"></script>
+<script src="js/missions.js"></script>
+
 
 <script>
 
-function mostrarCadastro(){
-document.getElementById("login").classList.add("hidden")
-document.getElementById("cadastro").classList.remove("hidden")
+
+function showRegister(){
+
+document.getElementById("login-form").classList.add("hidden")
+document.getElementById("register-form").classList.remove("hidden")
+
 }
 
-function voltarLogin(){
-document.getElementById("cadastro").classList.add("hidden")
-document.getElementById("login").classList.remove("hidden")
+
+function showLogin(){
+
+document.getElementById("register-form").classList.add("hidden")
+document.getElementById("login-form").classList.remove("hidden")
+
 }
 
-function cadastrar(){
 
-let nome=document.getElementById("nome").value
+function showScreen(id){
 
-if(nome==""){
-alert("Digite o nome do aluno")
+document.querySelectorAll(".screen").forEach(screen=>{
+screen.classList.remove("active")
+})
+
+document.getElementById(id).classList.add("active")
+
+}
+
+
+
+function doRegister(){
+
+let parent=document.getElementById("reg-parent").value
+let email=document.getElementById("reg-email").value
+let pass=document.getElementById("reg-pass").value
+let child=document.getElementById("reg-child").value
+let grade=document.getElementById("reg-grade").value
+
+
+if(parent=="" || email=="" || pass=="" || child=="" || grade==""){
+
+alert("Preencha todos os campos!")
+
 return
-}
-
-alert("Cadastro realizado!")
-
-voltarLogin()
 
 }
 
-function login(){
-alert("Login feito! Em breve começa o jogo 🎮")
+
+let user={
+
+parent:parent,
+email:email,
+pass:pass,
+child:child,
+grade:grade,
+coins:0
+
 }
+
+
+localStorage.setItem("financinhasUser",JSON.stringify(user))
+
+alert("Conta criada com sucesso!")
+
+showLogin()
+
+}
+
+
+
+function doLogin(){
+
+let email=document.getElementById("login-email").value
+let pass=document.getElementById("login-pass").value
+
+let user=JSON.parse(localStorage.getItem("financinhasUser"))
+
+
+if(!user){
+
+alert("Conta não encontrada. Cadastre primeiro.")
+
+return
+
+}
+
+
+if(email!=user.email || pass!=user.pass){
+
+alert("Email ou senha incorretos")
+
+return
+
+}
+
+
+showScreen("screen-avatar")
+
+}
+
+
+
+function saveAvatar(){
+
+let user=JSON.parse(localStorage.getItem("financinhasUser"))
+
+if(user){
+
+document.getElementById("hud-name").innerText=user.child
+
+}
+
+showScreen("screen-city")
+
+}
+
 
 </script>
+
 
 </body>
 </html>
