@@ -1,22 +1,34 @@
-nk rel="stylesheet" href="css/style.css" />
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financinhas – Missão dos Sonhos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
  
 <!-- ══════════════════════════════════════════
      TELA 0 — LOGIN / CADASTRO
 ══════════════════════════════════════════ -->
-@@ -24,20 +24,20 @@
+<div id="screen-login" class="screen active">
+  <div class="login-bg">
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+  </div>
+  <div class="login-card">
+    <div class="logos-bar">
+      <div class="logo-financinhas">
+        <div class="logo-coin">💰</div>
         <span>Financinhas<br><small>nas Escolas</small></span>
       </div>
       <div class="logo-sicoob">
-        <img src="assets/logo-sicoob.png" alt="Sicoob Credivertentes" class="sicoob-img" />
         <img src="Credivertentes (Vertical Multicor).png" alt="Sicoob Credivertentes" class="sicoob-img" />
       </div>
     </div>
     <h1 class="game-title">Missão dos Sonhos</h1>
     <p class="login-sub">A aventura financeira começa aqui! 🚀</p>
-
  
     <div id="login-form" class="form-box">
       <h3>Entrar na aventura</h3>
@@ -25,92 +37,121 @@ nk rel="stylesheet" href="css/style.css" />
       <button class="btn-primary" onclick="doLogin()">🎮 Jogar!</button>
       <p class="link-alt">Ainda não tem conta? <a href="#" onclick="showScreen('screen-register')">Cadastrar</a></p>
     </div>
-
  
     <div id="register-form" class="form-box hidden">
       <h3>Criar conta familiar</h3>
       <input type="text" id="reg-parent" placeholder="Nome do responsável" />
-@@ -57,17 +57,17 @@ <h3>Criar conta familiar</h3>
+      <input type="email" id="reg-email" placeholder="E-mail do responsável" />
+      <input type="password" id="reg-pass" placeholder="Senha (guarde bem!)" />
+      <input type="text" id="reg-child" placeholder="Nome da criança" />
+      <select id="reg-grade">
+        <option value="">Ano escolar</option>
+        <option value="1">1º Ano</option>
+        <option value="2">2º Ano</option>
+        <option value="3">3º Ano</option>
+        <option value="4">4º Ano</option>
+        <option value="5">5º Ano</option>
+      </select>
+      <button class="btn-primary" onclick="doRegister()">✨ Criar conta!</button>
+      <p class="link-alt">Já tem conta? <a href="#" onclick="showScreen('screen-login')">Entrar</a></p>
     </div>
   </div>
 </div>
-
  
 <!-- ══════════════════════════════════════════
      TELA 1 — CRIADOR DE AVATAR (The Sims style)
 ══════════════════════════════════════════ -->
 <div id="screen-avatar" class="screen">
   <div class="screen-header sky-header">
-    <div class="logos-mini"><span class="logo-mini-f">💰 Financinhas</span><img src="assets/logo-sicoob.png" alt="Sicoob Credivertentes" class="sicoob-mini-img" /></div>
     <div class="logos-mini"><span class="logo-mini-f">💰 Financinhas</span><img src="Credivertentes (Vertical Multicor).png" alt="Sicoob Credivertentes" class="sicoob-mini-img" /></div>
     <h2>Monte seu personagem!</h2>
     <p>Escolha como você vai aparecer no jogo 🎨</p>
   </div>
-
  
   <div class="avatar-studio">
     <!-- Preview do avatar -->
     <div class="avatar-preview-box">
-@@ -83,10 +83,10 @@ <h2>Monte seu personagem!</h2>
+      <div class="avatar-display" id="avatar-display">
+        <div class="av-body" id="av-body"></div>
+        <div class="av-clothes" id="av-clothes"></div>
+        <div class="av-hair" id="av-hair"></div>
+        <div class="av-face" id="av-face">
+          <div class="av-eyes" id="av-eyes"></div>
+          <div class="av-mouth" id="av-mouth"></div>
+        </div>
+        <div class="av-accessory" id="av-accessory"></div>
       </div>
       <div class="avatar-name-tag" id="avatar-name-tag">Seu personagem</div>
     </div>
-
  
     <!-- Painel de customização -->
     <div class="avatar-options">
-
  
       <div class="av-section">
         <h4>🎨 Cor da pele</h4>
         <div class="color-row" id="skin-picker">
-@@ -97,7 +97,7 @@ <h4>🎨 Cor da pele</h4>
+          <button class="skin-btn active" data-skin="skin1" style="background:#FDDBB4" onclick="setSkin(this,'#FDDBB4','skin1')"></button>
+          <button class="skin-btn" data-skin="skin2" style="background:#F5C191" onclick="setSkin(this,'#F5C191','skin2')"></button>
+          <button class="skin-btn" data-skin="skin3" style="background:#D4956A" onclick="setSkin(this,'#D4956A','skin3')"></button>
+          <button class="skin-btn" data-skin="skin4" style="background:#A0613A" onclick="setSkin(this,'#A0613A','skin4')"></button>
           <button class="skin-btn" data-skin="skin5" style="background:#5C3317" onclick="setSkin(this,'#5C3317','skin5')"></button>
         </div>
       </div>
-
  
       <div class="av-section">
         <h4>💇 Cabelo</h4>
         <div class="item-row" id="hair-picker">
-@@ -115,7 +115,7 @@ <h4>💇 Cabelo</h4>
+          <button class="item-btn active" onclick="setHair(this,'hair1')" title="Curto">✂️</button>
+          <button class="item-btn" onclick="setHair(this,'hair2')" title="Longo">💁</button>
+          <button class="item-btn" onclick="setHair(this,'hair3')" title="Enrolado">🌀</button>
+          <button class="item-btn" onclick="setHair(this,'hair4')" title="Trancinha">🎀</button>
+          <button class="item-btn" onclick="setHair(this,'hair5')" title="Careca">👦</button>
+        </div>
+        <div class="color-row" id="hair-color-picker">
+          <button class="skin-btn active" style="background:#1a0a00" onclick="setHairColor(this,'#1a0a00')"></button>
+          <button class="skin-btn" style="background:#8B4513" onclick="setHairColor(this,'#8B4513')"></button>
+          <button class="skin-btn" style="background:#FFD700" onclick="setHairColor(this,'#FFD700')"></button>
+          <button class="skin-btn" style="background:#C0C0C0" onclick="setHairColor(this,'#C0C0C0')"></button>
           <button class="skin-btn" style="background:#FF69B4" onclick="setHairColor(this,'#FF69B4')"></button>
         </div>
       </div>
-
  
       <div class="av-section">
         <h4>👕 Roupa</h4>
         <div class="item-row" id="clothes-picker">
-@@ -126,7 +126,7 @@ <h4>👕 Roupa</h4>
+          <button class="item-btn active" onclick="setClothes(this,'clothes1','#4FC3F7')">👕</button>
+          <button class="item-btn" onclick="setClothes(this,'clothes2','#81C784')">🧥</button>
+          <button class="item-btn" onclick="setClothes(this,'clothes3','#FFB74D')">👗</button>
+          <button class="item-btn" onclick="setClothes(this,'clothes4','#CE93D8')">🎽</button>
           <button class="item-btn" onclick="setClothes(this,'clothes5','#F48FB1')">👘</button>
         </div>
       </div>
-
  
       <div class="av-section">
         <h4>😊 Olhos</h4>
         <div class="item-row" id="eyes-picker">
-@@ -136,7 +136,7 @@ <h4>😊 Olhos</h4>
+          <button class="item-btn active" onclick="setEyes(this,'eyes1')">😊</button>
+          <button class="item-btn" onclick="setEyes(this,'eyes2')">😄</button>
+          <button class="item-btn" onclick="setEyes(this,'eyes3')">🤩</button>
           <button class="item-btn" onclick="setEyes(this,'eyes4')">😎</button>
         </div>
       </div>
-
  
       <div class="av-section">
         <h4>✨ Acessório</h4>
         <div class="item-row" id="acc-picker">
-@@ -147,20 +147,20 @@ <h4>✨ Acessório</h4>
+          <button class="item-btn active" onclick="setAccessory(this,'none')">🚫</button>
+          <button class="item-btn" onclick="setAccessory(this,'glasses')">🕶️</button>
+          <button class="item-btn" onclick="setAccessory(this,'hat')">🎩</button>
+          <button class="item-btn" onclick="setAccessory(this,'crown')">👑</button>
           <button class="item-btn" onclick="setAccessory(this,'bow')">🎀</button>
         </div>
       </div>
-
  
       <button class="btn-primary btn-big" onclick="saveAvatar()">Pronto! Vamos jogar! 🚀</button>
     </div>
   </div>
 </div>
-
  
 <!-- ══════════════════════════════════════════
      TELA 2 — CIDADE (MAPA PRINCIPAL)
@@ -119,16 +160,20 @@ nk rel="stylesheet" href="css/style.css" />
   <div class="city-topbar">
     <div class="logos-mini">
       <span class="logo-mini-f">💰 Financinhas</span>
-      <img src="assets/logo-sicoob.png" alt="Sicoob Credivertentes" class="sicoob-mini-img" />
       <img src="Credivertentes (Vertical Multicor).png" alt="Sicoob Credivertentes" class="sicoob-mini-img" />
     </div>
     <div class="player-hud">
       <div class="hud-avatar" id="hud-avatar">🧒</div>
-@@ -174,21 +174,21 @@ <h4>✨ Acessório</h4>
+      <div class="hud-info">
+        <span id="hud-name">Jogador</span>
+        <div class="hud-coins">💰 <span id="hud-coins">0</span> Moedas Coop</div>
+      </div>
+    </div>
+    <div class="hud-right">
+      <button class="btn-icon" onclick="showParentPanel()" title="Painel dos pais">👨‍👩‍👧</button>
       <button class="btn-icon" onclick="showProgress()" title="Meu progresso">📊</button>
     </div>
   </div>
-
  
   <!-- Sonho atual -->
   <div class="dream-bar" id="dream-bar">
@@ -136,7 +181,6 @@ nk rel="stylesheet" href="css/style.css" />
     <div class="dream-progress-bar"><div class="dream-fill" id="dream-fill" style="width:0%"></div></div>
     <span id="dream-pct">0%</span>
   </div>
-
  
   <!-- Mapa da cidade -->
   <div class="city-map">
@@ -144,40 +188,70 @@ nk rel="stylesheet" href="css/style.css" />
       <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
       <div class="sun">☀️</div>
     </div>
-
  
     <div class="city-grid">
       <div class="city-place" onclick="enterPlace('home')" style="--c:#FFD54F">
         <div class="place-icon">🏠</div>
-@@ -221,7 +221,7 @@ <h4>✨ Acessório</h4>
+        <div class="place-name">Casa da Família</div>
+        <div class="place-badge" id="badge-home">✓</div>
+      </div>
+      <div class="city-place" onclick="enterPlace('school')" style="--c:#81C784">
+        <div class="place-icon">🏫</div>
+        <div class="place-name">Escola</div>
+        <div class="place-badge" id="badge-school"></div>
+      </div>
+      <div class="city-place" onclick="enterPlace('market')" style="--c:#FFB74D">
+        <div class="place-icon">🏪</div>
+        <div class="place-name">Mercadinho</div>
+        <div class="place-badge" id="badge-market"></div>
+      </div>
+      <div class="city-place" onclick="enterPlace('coop')" style="--c:#4FC3F7">
+        <div class="place-icon">🏦</div>
+        <div class="place-name">Cooperativa Sicoob</div>
+        <div class="place-badge" id="badge-coop"></div>
+      </div>
+      <div class="city-place" onclick="enterPlace('park')" style="--c:#A5D6A7">
+        <div class="place-icon">🌳</div>
+        <div class="place-name">Praça</div>
+        <div class="place-badge" id="badge-park"></div>
+      </div>
+      <div class="city-place locked" onclick="enterPlace('workshop')" id="place-workshop" style="--c:#CE93D8">
+        <div class="place-icon">🔧</div>
+        <div class="place-name">Oficina</div>
         <div class="place-lock">🔒</div>
       </div>
     </div>
-
  
     <!-- Personagens flutuantes -->
     <div class="city-characters">
       <div class="char-float" style="left:10%;animation-delay:0s">
-@@ -237,7 +237,7 @@ <h4>✨ Acessório</h4>
+        <div class="char-bubble">Olá! Vem aprender! 📚</div>
+        <div class="char-emoji">👩‍🏫</div>
+        <div class="char-name">Prof. Lucas</div>
+      </div>
+      <div class="char-float" style="left:75%;animation-delay:1s">
+        <div class="char-bubble">Quer economizar? 💰</div>
+        <div class="char-emoji">🧓</div>
+        <div class="char-name">Seu Bento</div>
+      </div>
     </div>
   </div>
 </div>
-
  
 <!-- ══════════════════════════════════════════
      TELA 3 — MISSÃO (MINI-JOGO)
 ══════════════════════════════════════════ -->
-@@ -247,20 +247,20 @@ <h4>✨ Acessório</h4>
+<div id="screen-mission" class="screen">
+  <div class="mission-header">
+    <button class="btn-back" onclick="backToCity()">← Voltar</button>
     <div class="mission-title" id="mission-title">Missão</div>
     <div class="mission-coins">💰 <span id="mission-coins">0</span></div>
   </div>
-
  
   <div class="mission-content" id="mission-content">
     <!-- Preenchido dinamicamente -->
   </div>
 </div>
-
  
 <!-- ══════════════════════════════════════════
      TELA 4 — PAINEL DOS PAIS
@@ -186,16 +260,18 @@ nk rel="stylesheet" href="css/style.css" />
   <div class="screen-header">
     <button class="btn-back" onclick="backToCity()">← Voltar</button>
     <h2>👨‍👩‍👧 Painel dos Responsáveis</h2>
-    <img src="assets/logo-sicoob.png" alt="Sicoob Credivertentes" class="sicoob-header-img" />
     <img src="Credivertentes (Vertical Multicor).png" alt="Sicoob Credivertentes" class="sicoob-header-img" />
   </div>
   <div class="parent-body">
     <div class="parent-card">
-@@ -272,15 +272,15 @@ <h3>📊 Progresso de <span id="parent-child-name">-</span></h3>
+      <h3>📊 Progresso de <span id="parent-child-name">-</span></h3>
+      <div class="stat-grid">
+        <div class="stat-box"><div class="stat-num" id="stat-missions">0</div><div>Missões</div></div>
+        <div class="stat-box"><div class="stat-num" id="stat-coins">0</div><div>Moedas</div></div>
+        <div class="stat-box"><div class="stat-num" id="stat-trails">0</div><div>Trilhas</div></div>
         <div class="stat-box"><div class="stat-num" id="stat-time">0min</div><div>Hoje</div></div>
       </div>
     </div>
-
  
     <div class="parent-card">
       <h3>🌟 Sonho da criança</h3>
@@ -204,16 +280,17 @@ nk rel="stylesheet" href="css/style.css" />
       </div>
       <button class="btn-secondary" onclick="showDreamSetup()">✏️ Cadastrar / Editar Sonho</button>
     </div>
-
  
     <div class="parent-card">
       <h3>📈 Habilidades desenvolvidas</h3>
       <div class="skill-bars">
-@@ -291,14 +291,14 @@ <h3>📈 Habilidades desenvolvidas</h3>
+        <div class="skill-row"><span>Valor do dinheiro</span><div class="skill-bar"><div class="skill-fill" id="sk1" style="width:0%"></div></div></div>
+        <div class="skill-row"><span>Poupar</span><div class="skill-bar"><div class="skill-fill" id="sk2" style="width:0%"></div></div></div>
+        <div class="skill-row"><span>Escolhas</span><div class="skill-bar"><div class="skill-fill" id="sk3" style="width:0%"></div></div></div>
+        <div class="skill-row"><span>Consumo consciente</span><div class="skill-bar"><div class="skill-fill" id="sk4" style="width:0%"></div></div></div>
         <div class="skill-row"><span>Planejamento</span><div class="skill-bar"><div class="skill-fill" id="sk5" style="width:0%"></div></div></div>
       </div>
     </div>
-
  
     <div class="parent-card">
       <h3>🏅 Conquistas recentes</h3>
@@ -221,43 +298,66 @@ nk rel="stylesheet" href="css/style.css" />
     </div>
   </div>
 </div>
-
  
 <!-- ══════════════════════════════════════════
      MODAL — CADASTRO DO SONHO (senha obrigatória)
 ══════════════════════════════════════════ -->
-@@ -315,7 +315,7 @@ <h3>🌟 Cadastrar Sonho</h3>
+<div id="modal-dream" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3>🌟 Cadastrar Sonho</h3>
+    <p>Somente o responsável pode cadastrar o sonho.</p>
+    <input type="password" id="dream-parent-pass" placeholder="Senha do responsável" />
+    <input type="text" id="dream-item" placeholder="O que a criança sonha? Ex: Bicicleta" />
+    <input type="number" id="dream-cost" placeholder="Quantas Moedas Coop necessárias?" min="10" max="500" />
+    <div class="modal-btns">
+      <button class="btn-secondary" onclick="closeModal('modal-dream')">Cancelar</button>
+      <button class="btn-primary" onclick="saveDream()">Salvar Sonho 🌟</button>
     </div>
   </div>
 </div>
-
  
 <!-- ══════════════════════════════════════════
      MODAL — TEMPO DE TELA (1 hora)
 ══════════════════════════════════════════ -->
-@@ -332,7 +332,7 @@ <h3>Hora de uma pausa!</h3>
+<div id="modal-screentime" class="modal-overlay hidden">
+  <div class="modal-box modal-warning">
+    <div class="warning-icon">⏰</div>
+    <h3>Hora de uma pausa!</h3>
+    <p>Você já jogou por <strong>1 hora</strong>! Que tal descansar os olhos, beber água e se movimentar? 💧🏃</p>
+    <p class="warning-sub">Para continuar, peça para um adulto digitar a senha.</p>
+    <input type="password" id="screentime-pass" placeholder="Senha do responsável" />
+    <div class="modal-btns">
+      <button class="btn-primary" onclick="unlockScreenTime()">✅ Continuar (responsável)</button>
+    </div>
     <p class="warning-tip">💡 Dica: Pausas são saudáveis! Volte depois de descansar.</p>
   </div>
 </div>
-
  
 <!-- ══════════════════════════════════════════
      MODAL — RECOMPENSA
 ══════════════════════════════════════════ -->
-@@ -345,7 +345,7 @@ <h3 id="reward-title">Parabéns!</h3>
+<div id="modal-reward" class="modal-overlay hidden">
+  <div class="modal-box modal-reward">
+    <div class="reward-stars">⭐⭐⭐</div>
+    <h3 id="reward-title">Parabéns!</h3>
+    <p id="reward-msg"></p>
+    <div class="reward-coins" id="reward-coins">+10 💰</div>
     <button class="btn-primary" onclick="closeModal('modal-reward')">Continuar! 🚀</button>
   </div>
 </div>
-
  
 <!-- ══════════════════════════════════════════
      MODAL — MISSÃO COMPLETA
 ══════════════════════════════════════════ -->
-@@ -358,10 +358,11 @@ <h2>Missão Completa!</h2>
+<div id="modal-complete" class="modal-overlay hidden">
+  <div class="modal-box modal-complete">
+    <div class="complete-animation">🎉</div>
+    <h2>Missão Completa!</h2>
+    <p id="complete-msg"></p>
+    <div class="earned-badge" id="earned-badge"></div>
     <button class="btn-primary" onclick="closeModal('modal-complete');backToCity()">Explorar a cidade! 🗺️</button>
   </div>
 </div>
-
  
 <script src="js/data.js"></script>
 <script src="js/avatar.js"></script>
@@ -265,3 +365,4 @@ nk rel="stylesheet" href="css/style.css" />
 <script src="js/missions.js"></script>
 </body>
 </html>
+ 
