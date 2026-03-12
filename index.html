@@ -2,26 +2,26 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Financinhas - Jogo</title>
+<title>Financinhas Jogo</title>
 
 <style>
 
 body{
-font-family: Arial;
-background:#f4f6fb;
+font-family:Arial;
+background:#f3f4ff;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
 }
 
-.container{
+.box{
 background:white;
 padding:30px;
 border-radius:10px;
 width:320px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
 text-align:center;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
 input{
@@ -35,22 +35,21 @@ border:1px solid #ccc;
 button{
 width:100%;
 padding:10px;
+background:#6a1b9a;
+color:white;
 border:none;
 border-radius:5px;
-background:#7b2cbf;
-color:white;
-font-size:16px;
 cursor:pointer;
 }
 
 button:hover{
-background:#5a189a;
+background:#4a148c;
 }
 
 .link{
 margin-top:10px;
-cursor:pointer;
 color:#555;
+cursor:pointer;
 }
 
 .hidden{
@@ -62,18 +61,18 @@ display:none;
 
 <body>
 
-<div class="container">
+<div class="box">
 
 <!-- LOGIN -->
 <div id="login">
 
 <h2>🎮 Financinhas</h2>
 
-<input type="email" placeholder="E-mail do responsável">
+<input type="email" placeholder="Email do responsável">
 
 <input type="password" placeholder="Senha">
 
-<button onclick="jogar()">Jogar!</button>
+<button onclick="login()">Jogar</button>
 
 <p class="link" onclick="mostrarCadastro()">Ainda não tem conta? Cadastrar</p>
 
@@ -82,15 +81,15 @@ display:none;
 <!-- CADASTRO -->
 <div id="cadastro" class="hidden">
 
-<h2>Criar Conta</h2>
+<h2>Criar conta</h2>
 
 <input id="nome" placeholder="Nome do aluno">
 
-<input id="email" placeholder="E-mail do responsável">
+<input id="email" placeholder="Email">
 
 <input id="senha" type="password" placeholder="Senha">
 
-<button onclick="cadastrar()">Criar Conta</button>
+<button onclick="cadastrar()">Criar conta</button>
 
 <p class="link" onclick="voltarLogin()">Voltar</p>
 
@@ -113,21 +112,20 @@ document.getElementById("login").classList.remove("hidden")
 function cadastrar(){
 
 let nome=document.getElementById("nome").value
-let email=document.getElementById("email").value
 
-if(nome=="" || email==""){
-alert("Preencha os campos")
+if(nome==""){
+alert("Digite o nome do aluno")
 return
 }
 
-alert("Conta criada com sucesso!")
+alert("Cadastro realizado!")
 
 voltarLogin()
 
 }
 
-function jogar(){
-alert("Login realizado! Em breve o jogo começa 🎮")
+function login(){
+alert("Login feito! Em breve começa o jogo 🎮")
 }
 
 </script>
