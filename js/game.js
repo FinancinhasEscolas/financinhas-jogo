@@ -1,3 +1,7 @@
+// ================================
+// MOSTRAR CADASTRO
+// ================================
+
 function mostrarCadastro(){
 
 document.getElementById("login").style.display="none"
@@ -6,11 +10,22 @@ document.getElementById("cadastro").style.display="block"
 }
 
 
+// ================================
+// CADASTRAR
+// ================================
+
 function cadastrar(){
 
 let nome=document.getElementById("reg-nome").value
 let email=document.getElementById("reg-email").value
 let pass=document.getElementById("reg-pass").value
+
+if(nome=="" || email=="" || pass==""){
+
+alert("Preencha todos os campos")
+return
+
+}
 
 let user={
 
@@ -21,9 +36,9 @@ moedas:0
 
 }
 
-localStorage.setItem("user",JSON.stringify(user))
+localStorage.setItem("financinhas_user",JSON.stringify(user))
 
-alert("Conta criada!")
+alert("Conta criada com sucesso!")
 
 document.getElementById("cadastro").style.display="none"
 document.getElementById("login").style.display="block"
@@ -31,22 +46,27 @@ document.getElementById("login").style.display="block"
 }
 
 
+// ================================
+// LOGIN
+// ================================
+
 function login(){
 
 let email=document.getElementById("login-email").value
 let pass=document.getElementById("login-pass").value
 
-let user=JSON.parse(localStorage.getItem("user"))
+let user=localStorage.getItem("financinhas_user")
 
 if(!user){
 
-alert("Crie uma conta primeiro")
-
+alert("Você precisa criar uma conta primeiro!")
 return
 
 }
 
-if(email==user.email && pass==user.pass){
+user=JSON.parse(user)
+
+if(email===user.email && pass===user.pass){
 
 document.getElementById("login").style.display="none"
 document.getElementById("avatar").style.display="block"
@@ -60,23 +80,30 @@ alert("Email ou senha incorretos")
 }
 
 
+// ================================
+// ESCOLHER PERSONAGEM
+// ================================
+
 function escolher(nome){
 
-let user=JSON.parse(localStorage.getItem("user"))
+let user=JSON.parse(localStorage.getItem("financinhas_user"))
 
 user.avatar=nome
 
-localStorage.setItem("user",JSON.stringify(user))
+localStorage.setItem("financinhas_user",JSON.stringify(user))
 
 document.getElementById("avatar").style.display="none"
 document.getElementById("cidade").style.display="block"
 
-document.getElementById("player").innerText="Jogador: "+nome
-
+document.getElementById("player").innerText="Personagem: "+nome
 document.getElementById("moedas").innerText=user.moedas
 
 }
 
+
+// ================================
+// PERGUNTAS
+// ================================
 
 let perguntaAtual
 
@@ -95,13 +122,17 @@ c:0
 },
 
 {
-p:"Quem ajuda a guardar dinheiro?",
+p:"Quem guarda dinheiro?",
 r:["Banco ou cooperativa","Lixeira"],
 c:0
 }
 
 ]
 
+
+// ================================
+// MISSÃO
+// ================================
 
 function missao(){
 
@@ -113,12 +144,15 @@ perguntaAtual=Math.floor(Math.random()*perguntas.length)
 let p=perguntas[perguntaAtual]
 
 document.getElementById("pergunta").innerText=p.p
-
 document.getElementById("a0").innerText=p.r[0]
 document.getElementById("a1").innerText=p.r[1]
 
 }
 
+
+// ================================
+// RESPONDER
+// ================================
 
 function responder(op){
 
@@ -126,13 +160,13 @@ let p=perguntas[perguntaAtual]
 
 if(op==p.c){
 
-alert("Acertou! ganhou 10 moedas")
+alert("Acertou! +10 moedas")
 
-let user=JSON.parse(localStorage.getItem("user"))
+let user=JSON.parse(localStorage.getItem("financinhas_user"))
 
 user.moedas+=10
 
-localStorage.setItem("user",JSON.stringify(user))
+localStorage.setItem("financinhas_user",JSON.stringify(user))
 
 document.getElementById("moedas").innerText=user.moedas
 
