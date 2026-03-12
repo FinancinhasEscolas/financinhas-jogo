@@ -1,10 +1,12 @@
+════════════════════════════════════════════════════════════
+ 
 // ═══════════════════════════════════════
 // FINANCINHAS – DADOS DO JOGO
 // Personagens, Missões, Conquistas
 // ═══════════════════════════════════════
-
+ 
 const GAME_DATA = {
-
+ 
   // ── PERSONAGENS ──────────────────────
   characters: {
     caio:    { name: "Caio",         emoji: "👦", color: "#FFD54F", desc: "Curioso e aventureiro" },
@@ -18,7 +20,7 @@ const GAME_DATA = {
     lucia:   { name: "Dona Lúcia",   emoji: "👵", color: "#F06292", desc: "Dona do mercadinho" },
     lucas:   { name: "Prof. Lucas",  emoji: "👨‍🏫", color: "#42A5F5", desc: "Guia das missões" }
   },
-
+ 
   // ── LUGARES ──────────────────────────
   places: {
     home:     { name: "Casa da Família",      icon: "🏠", trail: 1, unlocked: true  },
@@ -28,7 +30,7 @@ const GAME_DATA = {
     park:     { name: "Praça",                icon: "🌳", trail: 5, unlocked: true  },
     workshop: { name: "Oficina",              icon: "🔧", trail: 6, unlocked: false }
   },
-
+ 
   // ── TRILHAS ──────────────────────────
   trails: [
     { id: 1, name: "Valor do Dinheiro",   icon: "💰", place: "home",   color: "#FFD54F" },
@@ -37,7 +39,7 @@ const GAME_DATA = {
     { id: 4, name: "Consumo Consciente",  icon: "🌱", place: "coop",   color: "#4FC3F7" },
     { id: 5, name: "Planejamento",        icon: "🌟", place: "park",   color: "#CE93D8" }
   ],
-
+ 
   // ── CONQUISTAS ───────────────────────
   achievements: [
     { id: "first_mission",  icon: "🌟", title: "Primeira Missão!",     desc: "Completou a primeira missão", coins: 5  },
@@ -51,7 +53,7 @@ const GAME_DATA = {
     { id: "trail4",         icon: "🌱", title: "Guardião da Terra",    desc: "Trilha 4 completa!",          coins: 20 },
     { id: "trail5",         icon: "🌟", title: "Guardião do Dinheiro", desc: "Trilha 5 completa!",          coins: 30 }
   ],
-
+ 
   // ── RECOMPENSAS DA LOJA ──────────────
   rewards: [
     { id: "shirt",    cost: 10,  icon: "👕", name: "Camiseta nova",   type: "clothes" },
@@ -63,10 +65,10 @@ const GAME_DATA = {
     { id: "crown",    cost: 100, icon: "👑", name: "Coroa de campeão",type: "accessory" }
   ]
 };
-
+ 
 // ── MISSÕES COMPLETAS (50 missões) ────
 const MISSIONS = [
-
+ 
   // ═══ TRILHA 1 – VALOR DO DINHEIRO (Casa) ═══
   {
     id: 1, trail: 1, place: "home", order: 1,
@@ -87,7 +89,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 2, trail: 1, place: "home", order: 2,
     title: "A Moeda do Caio",
@@ -107,7 +109,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 3, trail: 1, place: "home", order: 3,
     title: "De onde vem o dinheiro?",
@@ -127,7 +129,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 4, trail: 1, place: "home", order: 4,
     title: "Quanto custa?",
@@ -148,7 +150,7 @@ const MISSIONS = [
       categories: ["Mais barato (até R$5)", "Mais caro (acima de R$5)"]
     }
   },
-
+ 
   {
     id: 5, trail: 1, place: "home", order: 5,
     title: "O troco certo",
@@ -165,7 +167,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 6, trail: 1, place: "home", order: 6,
     title: "Necessidade ou desejo?",
@@ -186,7 +188,7 @@ const MISSIONS = [
       categories: ["Preciso (Necessidade)", "Quero (Desejo)"]
     }
   },
-
+ 
   {
     id: 7, trail: 1, place: "home", order: 7,
     title: "Guardando no cofrinho",
@@ -199,7 +201,7 @@ const MISSIONS = [
       target: 10
     }
   },
-
+ 
   {
     id: 8, trail: 1, place: "home", order: 8,
     title: "Comprar ou esperar?",
@@ -219,7 +221,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 9, trail: 1, place: "home", order: 9,
     title: "A escolha do lanche",
@@ -240,7 +242,7 @@ const MISSIONS = [
       tip: "Tente escolher itens saudáveis que caibam no orçamento!"
     }
   },
-
+ 
   {
     id: 10, trail: 1, place: "home", order: 10,
     title: "Guardião das Moedas",
@@ -260,7 +262,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   // ═══ TRILHA 2 – POUPAR (Escola) ═══
   {
     id: 11, trail: 2, place: "school", order: 1,
@@ -274,7 +276,7 @@ const MISSIONS = [
       target: 15
     }
   },
-
+ 
   {
     id: 12, trail: 2, place: "school", order: 2,
     title: "Esperar 3 dias",
@@ -294,7 +296,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 13, trail: 2, place: "school", order: 3,
     title: "Meta de economia",
@@ -311,7 +313,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 14, trail: 2, place: "school", order: 4,
     title: "Comparando preços",
@@ -331,7 +333,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 15, trail: 2, place: "school", order: 5,
     title: "Seu primeiro sonho",
@@ -351,7 +353,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   // Missões 16-20 (Trail 2 continuação)
   {
     id: 16, trail: 2, place: "school", order: 6,
@@ -365,7 +367,7 @@ const MISSIONS = [
       target: 20
     }
   },
-
+ 
   {
     id: 17, trail: 2, place: "school", order: 7,
     title: "Resistir ao impulso",
@@ -385,7 +387,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 18, trail: 2, place: "school", order: 8,
     title: "Prioridades",
@@ -404,7 +406,7 @@ const MISSIONS = [
       categories: ["Mais importante", "Menos importante"]
     }
   },
-
+ 
   {
     id: 19, trail: 2, place: "school", order: 9,
     title: "Lista de compras",
@@ -424,7 +426,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 20, trail: 2, place: "school", order: 10,
     title: "Poupador Mestre!",
@@ -444,7 +446,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   // ═══ TRILHA 3 – ESCOLHAS (Mercadinho) ═══
   {
     id: 21, trail: 3, place: "market", order: 1,
@@ -466,7 +468,7 @@ const MISSIONS = [
       tip: "Escolha itens nutritivos que caibam no orçamento!"
     }
   },
-
+ 
   {
     id: 22, trail: 3, place: "market", order: 2,
     title: "Promoção ou armadilha?",
@@ -486,7 +488,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 23, trail: 3, place: "market", order: 3,
     title: "Evitar desperdício",
@@ -507,7 +509,7 @@ const MISSIONS = [
       categories: ["Evita desperdício ✅", "Causa desperdício ❌"]
     }
   },
-
+ 
   {
     id: 24, trail: 3, place: "market", order: 4,
     title: "O melhor negócio",
@@ -527,7 +529,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 25, trail: 3, place: "market", order: 5,
     title: "Consertar ou jogar fora?",
@@ -547,7 +549,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   // Missões 26-30 (Trail 3 continuação simplificada)
   {
     id: 26, trail: 3, place: "market", order: 6,
@@ -568,7 +570,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 27, trail: 3, place: "market", order: 7,
     title: "Pensar antes de gastar",
@@ -588,7 +590,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 28, trail: 3, place: "market", order: 8,
     title: "Lanche saudável",
@@ -609,7 +611,7 @@ const MISSIONS = [
       tip: "Monte um lanche nutritivo dentro do orçamento!"
     }
   },
-
+ 
   {
     id: 29, trail: 3, place: "market", order: 9,
     title: "Compartilhar é bom",
@@ -629,7 +631,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 30, trail: 3, place: "market", order: 10,
     title: "Mestre das Escolhas!",
@@ -649,7 +651,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   // ═══ TRILHA 4 – CONSUMO CONSCIENTE (Cooperativa) ═══
   {
     id: 31, trail: 4, place: "coop", order: 1,
@@ -670,7 +672,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 32, trail: 4, place: "coop", order: 2,
     title: "Economizando água",
@@ -691,7 +693,7 @@ const MISSIONS = [
       categories: ["Economiza água 💧", "Desperdiça água 😔"]
     }
   },
-
+ 
   {
     id: 33, trail: 4, place: "coop", order: 3,
     title: "Energia em casa",
@@ -712,7 +714,7 @@ const MISSIONS = [
       categories: ["Economiza energia ✅", "Desperdiça energia ❌"]
     }
   },
-
+ 
   {
     id: 34, trail: 4, place: "coop", order: 4,
     title: "Não desperdiçar comida",
@@ -732,7 +734,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 35, trail: 4, place: "coop", order: 5,
     title: "Menos plástico",
@@ -752,7 +754,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   // Missões 36-40 simplificadas
   {
     id: 36, trail: 4, place: "coop", order: 6,
@@ -774,7 +776,7 @@ const MISSIONS = [
       categories: ["Pode reutilizar ♻️", "Jogar fora 🗑️"]
     }
   },
-
+ 
   {
     id: 37, trail: 4, place: "coop", order: 7,
     title: "Cooperativa: o que é?",
@@ -794,7 +796,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 38, trail: 4, place: "coop", order: 8,
     title: "Moda consciente",
@@ -814,7 +816,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 39, trail: 4, place: "coop", order: 9,
     title: "Dinheiro na cooperativa",
@@ -834,7 +836,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 40, trail: 4, place: "coop", order: 10,
     title: "Guardião da Terra!",
@@ -854,7 +856,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   // ═══ TRILHA 5 – PLANEJAMENTO (Praça) ═══
   {
     id: 41, trail: 5, place: "park", order: 1,
@@ -875,7 +877,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 42, trail: 5, place: "park", order: 2,
     title: "Fazendo as contas",
@@ -892,7 +894,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 43, trail: 5, place: "park", order: 3,
     title: "O cofrinho do sonho",
@@ -905,7 +907,7 @@ const MISSIONS = [
       target: 25
     }
   },
-
+ 
   {
     id: 44, trail: 5, place: "park", order: 4,
     title: "Resistir pensando no sonho",
@@ -925,7 +927,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 45, trail: 5, place: "park", order: 5,
     title: "Planejamento com a família",
@@ -945,7 +947,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   // Missões 46-50
   {
     id: 46, trail: 5, place: "park", order: 6,
@@ -965,7 +967,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 47, trail: 5, place: "park", order: 7,
     title: "Ajudando em casa",
@@ -985,7 +987,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 48, trail: 5, place: "park", order: 8,
     title: "Cofrinho cheio!",
@@ -998,7 +1000,7 @@ const MISSIONS = [
       target: 30
     }
   },
-
+ 
   {
     id: 49, trail: 5, place: "park", order: 9,
     title: "O sonho se realizou!",
@@ -1018,7 +1020,7 @@ const MISSIONS = [
       ]
     }
   },
-
+ 
   {
     id: 50, trail: 5, place: "park", order: 10,
     title: "Guardião do Dinheiro!",
@@ -1038,5 +1040,6 @@ const MISSIONS = [
       ]
     }
   }
-
+ 
 ];
+ 
