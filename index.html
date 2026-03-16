@@ -6,7 +6,845 @@
   <title>Financinhas – Missão dos Sonhos</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka+One&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <style>
+/* ═══════════════════════════════════
+   FINANCINHAS – MISSÃO DOS SONHOS
+   CSS Principal
+═══════════════════════════════════ */
+ 
+:root {
+  --primary: #00A86B;
+  --primary-dark: #007A4E;
+  --primary-light: #E8F8F2;
+  --sicoob: #006B3C;
+  --accent: #FFD600;
+  --accent2: #FF6B35;
+  --sky: #87CEEB;
+  --sky-light: #E0F4FF;
+  --grass: #4CAF50;
+  --coin: #FFD600;
+  --purple: #9C27B0;
+  --pink: #E91E63;
+  --blue: #1565C0;
+  --radius: 18px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.12);
+  --shadow-card: 0 4px 16px rgba(0,0,0,0.10);
+  --font-game: 'Fredoka One', cursive;
+  --font-body: 'Nunito', sans-serif;
+}
+ 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+body {
+  font-family: var(--font-body);
+  background: var(--sky-light);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+ 
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; position: relative; }
+.screen.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
+ 
+/* ── BUTTONS ── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 32px;
+  font-family: var(--font-game);
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,168,107,0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+  width: 100%;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,168,107,0.5); }
+.btn-primary:active { transform: translateY(1px); }
+ 
+.btn-secondary {
+  background: #fff;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  border-radius: 50px;
+  padding: 12px 28px;
+  font-family: var(--font-game);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  width: 100%;
+}
+.btn-secondary:hover { background: var(--primary-light); }
+ 
+.btn-big { padding: 18px 40px; font-size: 1.2rem; margin-top: 16px; }
+.btn-back {
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  font-family: var(--font-game);
+  cursor: pointer;
+  color: var(--primary-dark);
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.btn-back:hover { background: #fff; }
+ 
+.btn-icon {
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50px;
+  width: 44px; height: 44px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.btn-icon:hover { transform: scale(1.1); }
+ 
+/* ══ LOGOS BAR ══ */
+.logos-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.logo-financinhas {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-game);
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+.logo-coin { font-size: 2rem; }
+.logo-financinhas small { font-family: var(--font-body); font-size: 0.7rem; display: block; color: #666; }
+ 
+.logo-sicoob {
+  display: flex;
+  align-items: center;
+}
+.sicoob-img {
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  /* fundo branco arredondado para contraste em fundos coloridos */
+  background: #fff;
+  border-radius: 12px;
+  padding: 6px 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+}
+ 
+.sicoob-mini-img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 8px;
+  padding: 3px 7px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+ 
+.sicoob-header-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 10px;
+  padding: 4px 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  margin-top: 4px;
+}
+ 
+.logos-mini {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.logo-mini-f {
+  font-family: var(--font-game);
+  color: var(--primary-dark);
+  font-size: 0.9rem;
+}
+ 
+/* ══════════════════════════════════
+   TELA LOGIN
+══════════════════════════════════ */
+#screen-login {
+  background: linear-gradient(180deg, #87CEEB 0%, #b8e8ff 40%, #c8f0a8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+ 
+.login-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.cloud {
+  position: absolute;
+  background: #fff;
+  border-radius: 50px;
+  opacity: 0.8;
+  animation: floatCloud 20s linear infinite;
+}
+.cloud::before, .cloud::after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+.c1 { width: 150px; height: 50px; top: 15%; left: -160px; animation-duration: 25s; }
+.c1::before { width: 80px; height: 80px; top: -40px; left: 20px; }
+.c1::after { width: 60px; height: 60px; top: -30px; left: 70px; }
+.c2 { width: 200px; height: 60px; top: 25%; left: -220px; animation-duration: 35s; animation-delay: -10s; }
+.c2::before { width: 100px; height: 100px; top: -50px; left: 30px; }
+.c3 { width: 120px; height: 40px; top: 10%; left: -140px; animation-duration: 20s; animation-delay: -5s; }
+@keyframes floatCloud { to { left: 110%; } }
+ 
+.login-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 28px;
+  padding: 36px 32px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+}
+ 
+.game-title {
+  font-family: var(--font-game);
+  font-size: 2rem;
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 4px;
+  text-shadow: 2px 2px 0 rgba(0,168,107,0.15);
+}
+.login-sub {
+  text-align: center;
+  color: #777;
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+}
+ 
+.form-box h3 {
+  font-family: var(--font-game);
+  color: var(--primary-dark);
+  margin-bottom: 16px;
+  font-size: 1.2rem;
+}
+.form-box input, .form-box select {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+  background: #fafafa;
+}
+.form-box input:focus, .form-box select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: #fff;
+}
+.link-alt { text-align: center; margin-top: 12px; font-size: 0.9rem; color: #888; }
+.link-alt a { color: var(--primary); font-weight: 700; text-decoration: none; }
+.hidden { display: none !important; }
+ 
+/* ══════════════════════════════════
+   CRIADOR DE AVATAR
+══════════════════════════════════ */
+#screen-avatar {
+  background: linear-gradient(180deg, #87CEEB 0%, #c8f0a8 100%);
+  min-height: 100vh;
+}
+.sky-header {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  text-align: center;
+}
+.sky-header h2 { font-family: var(--font-game); font-size: 1.8rem; color: #fff; text-shadow: 1px 2px 8px rgba(0,0,0,0.2); }
+.sky-header p { color: rgba(255,255,255,0.9); font-size: 0.95rem; }
+ 
+.avatar-studio {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+@media (max-width: 600px) { .avatar-studio { grid-template-columns: 1fr; } }
+ 
+.avatar-preview-box {
+  background: rgba(255,255,255,0.9);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card);
+  min-height: 300px;
+  position: sticky;
+  top: 20px;
+}
+ 
+.avatar-display {
+  width: 140px;
+  height: 180px;
+  position: relative;
+  margin-bottom: 16px;
+}
+.av-body {
+  position: absolute;
+  width: 90px; height: 110px;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  border-radius: 20px 20px 10px 10px;
+  transition: background 0.3s;
+}
+.av-clothes {
+  position: absolute;
+  width: 90px; height: 70px;
+  bottom: 30px; left: 50%; transform: translateX(-50%);
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+.av-face {
+  position: absolute;
+  width: 70px; height: 70px;
+  top: 10px; left: 50%; transform: translateX(-50%);
+  border-radius: 50%;
+  background: #FDDBB4;
+  border: 3px solid rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  transition: background 0.3s;
+  overflow: hidden;
+}
+.av-hair {
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  width: 80px; height: 40px;
+  border-radius: 50% 50% 0 0;
+  background: #1a0a00;
+  z-index: 2;
+  transition: background 0.3s;
+}
+.av-eyes { font-size: 1.4rem; line-height: 1; }
+.av-mouth { font-size: 1rem; }
+.av-accessory {
+  position: absolute;
+  top: 0; left: 50%; transform: translateX(-50%);
+  font-size: 1.6rem;
+  z-index: 5;
+}
+ 
+.avatar-name-tag {
+  font-family: var(--font-game);
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  background: var(--primary-light);
+  padding: 6px 18px;
+  border-radius: 50px;
+}
+ 
+.avatar-options {
+  background: rgba(255,255,255,0.9);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+  overflow-y: auto;
+  max-height: 80vh;
+}
+.av-section { margin-bottom: 16px; }
+.av-section h4 { font-family: var(--font-game); color: var(--primary-dark); margin-bottom: 8px; font-size: 1rem; }
+ 
+.color-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.skin-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.skin-btn:hover { transform: scale(1.15); }
+.skin-btn.active { border-color: var(--primary); transform: scale(1.15); }
+ 
+.item-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.item-btn {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  border: 2px solid #e0e0e0;
+  background: #f5f5f5;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.item-btn:hover { border-color: var(--primary); background: var(--primary-light); transform: scale(1.1); }
+.item-btn.active { border-color: var(--primary); background: var(--primary-light); box-shadow: 0 2px 8px rgba(0,168,107,0.3); }
+ 
+/* ══════════════════════════════════
+   CIDADE
+══════════════════════════════════ */
+#screen-city { background: linear-gradient(180deg, #87CEEB 0%, #b8e8ff 50%, #c8f0a8 100%); }
+ 
+.city-topbar {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  gap: 12px;
+}
+.player-hud { display: flex; align-items: center; gap: 10px; flex: 1; }
+.hud-avatar { font-size: 2rem; width: 50px; height: 50px; background: var(--primary-light); border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hud-info { display: flex; flex-direction: column; }
+.hud-info span { font-family: var(--font-game); color: var(--primary-dark); font-size: 0.95rem; }
+.hud-coins { font-size: 0.85rem; color: #888; }
+.hud-right { display: flex; gap: 8px; }
+ 
+.dream-bar {
+  background: rgba(255,255,255,0.9);
+  margin: 12px 16px;
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-card);
+}
+.dream-progress-bar {
+  flex: 1;
+  background: #e0e0e0;
+  border-radius: 50px;
+  height: 12px;
+  overflow: hidden;
+}
+.dream-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 50px;
+  transition: width 0.8s ease;
+}
+ 
+.city-map { padding: 16px; position: relative; }
+.city-sky { position: relative; height: 80px; overflow: hidden; }
+.sun { position: absolute; top: 10px; right: 20px; font-size: 2.5rem; animation: bobSun 3s ease-in-out infinite; }
+@keyframes bobSun { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+ 
+.city-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+@media (max-width: 500px) { .city-grid { grid-template-columns: repeat(2, 1fr); } }
+ 
+.city-place {
+  background: rgba(255,255,255,0.92);
+  border-radius: 20px;
+  padding: 20px 12px;
+  text-align: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: var(--shadow-card);
+  border: 3px solid transparent;
+  animation: placeIn 0.5s ease both;
+}
+.city-place:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  border-color: var(--c, var(--primary));
+}
+.city-place.locked { opacity: 0.6; cursor: not-allowed; }
+.city-place.locked:hover { transform: none; box-shadow: var(--shadow-card); }
+@keyframes placeIn { from { opacity:0; transform:scale(0.8) } to { opacity:1; transform:scale(1) } }
+ 
+.place-icon { font-size: 2.5rem; margin-bottom: 8px; }
+.place-name { font-family: var(--font-game); color: #444; font-size: 0.85rem; }
+.place-badge {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  width: 22px; height: 22px;
+  font-size: 0.65rem;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+}
+.place-lock { position: absolute; top: 8px; right: 8px; font-size: 1.1rem; }
+ 
+.city-characters { position: relative; min-height: 100px; margin-top: 16px; }
+.char-float {
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  animation: floatChar 3s ease-in-out infinite;
+}
+@keyframes floatChar { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-10px) } }
+.char-bubble {
+  background: #fff;
+  border-radius: 14px;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 4px;
+  white-space: nowrap;
+  position: relative;
+}
+.char-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px; left: 50%; transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #fff;
+}
+.char-emoji { font-size: 2rem; }
+.char-name { font-family: var(--font-game); font-size: 0.75rem; color: #555; }
+ 
+/* ══════════════════════════════════
+   MISSÃO
+══════════════════════════════════ */
+#screen-mission {
+  background: linear-gradient(180deg, #1565C0 0%, #1976D2 40%, #42A5F5 100%);
+  min-height: 100vh;
+}
+.mission-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+}
+.mission-title { font-family: var(--font-game); color: #fff; font-size: 1.2rem; }
+.mission-coins { color: var(--accent); font-family: var(--font-game); font-size: 1.1rem; }
+ 
+.mission-content {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+ 
+.mission-card {
+  background: rgba(255,255,255,0.97);
+  border-radius: 24px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  animation: slideUp 0.4s ease;
+}
+@keyframes slideUp { from { opacity:0; transform:translateY(30px) } to { opacity:1; transform:translateY(0) } }
+ 
+.mission-char { font-size: 3.5rem; text-align: center; margin-bottom: 8px; }
+.mission-char-name { font-family: var(--font-game); text-align: center; color: var(--primary-dark); margin-bottom: 16px; }
+.mission-story {
+  background: var(--primary-light);
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+  line-height: 1.6;
+  border-left: 4px solid var(--primary);
+}
+.mission-question {
+  font-family: var(--font-game);
+  font-size: 1.1rem;
+  color: var(--primary-dark);
+  margin-bottom: 16px;
+  text-align: center;
+}
+.mission-choices { display: flex; flex-direction: column; gap: 12px; }
+.choice-btn {
+  background: #fff;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.choice-btn:hover { border-color: var(--primary); background: var(--primary-light); transform: translateX(4px); }
+.choice-btn.correct { border-color: #4CAF50; background: #E8F5E9; }
+.choice-btn.wrong { border-color: #f44336; background: #FFEBEE; }
+.choice-icon { font-size: 1.4rem; }
+ 
+.feedback-box {
+  border-radius: 14px;
+  padding: 16px;
+  margin-top: 16px;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.feedback-box.correct { background: #E8F5E9; border: 2px solid #4CAF50; }
+.feedback-box.wrong { background: #FFEBEE; border: 2px solid #f44336; }
+ 
+/* Mini-game sorter */
+.sort-game { }
+.sort-instructions { text-align: center; margin-bottom: 16px; color: #666; font-size: 0.9rem; }
+.sort-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.sort-col {
+  background: #f5f5f5;
+  border-radius: 14px;
+  padding: 12px;
+  min-height: 140px;
+}
+.sort-col-title {
+  font-family: var(--font-game);
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+.sort-items { display: flex; flex-direction: column; gap: 6px; }
+.sort-item {
+  background: #fff;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: 2px solid #e0e0e0;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sort-item:hover { border-color: var(--primary); transform: scale(1.02); }
+.sort-drop-zone {
+  min-height: 80px;
+  border: 2px dashed #ccc;
+  border-radius: 10px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: border-color 0.2s;
+}
+.sort-drop-zone.over { border-color: var(--primary); background: var(--primary-light); }
+ 
+/* Cofrinho mini-game */
+.piggy-game { text-align: center; }
+.piggy-icon { font-size: 5rem; margin: 16px 0; cursor: pointer; transition: transform 0.2s; }
+.piggy-icon:hover { transform: scale(1.1); }
+.piggy-counter { font-family: var(--font-game); font-size: 2rem; color: var(--primary-dark); }
+.piggy-instructions { color: #666; font-size: 0.9rem; margin-bottom: 12px; }
+.coin-rain { position: relative; overflow: hidden; height: 60px; }
+.coin-particle {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: fallCoin 1s ease forwards;
+}
+@keyframes fallCoin {
+  from { top: -20px; opacity: 1; }
+  to { top: 80px; opacity: 0; }
+}
+ 
+/* Budget mini-game */
+.budget-game { }
+.budget-bar-wrap { margin-bottom: 16px; }
+.budget-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 6px; }
+.budget-bar { height: 16px; background: #e0e0e0; border-radius: 50px; overflow: hidden; }
+.budget-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 50px; transition: width 0.4s; }
+.budget-fill.over { background: linear-gradient(90deg, #f44336, #ff7043); }
+.shop-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.shop-item {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid #e0e0e0;
+  transition: all 0.2s;
+}
+.shop-item:hover { border-color: var(--primary); transform: scale(1.05); }
+.shop-item.selected { border-color: var(--primary); background: var(--primary-light); }
+.shop-item.unavailable { opacity: 0.5; cursor: not-allowed; }
+.shop-icon { font-size: 1.8rem; margin-bottom: 4px; }
+.shop-name { font-size: 0.75rem; color: #555; }
+.shop-price { font-family: var(--font-game); color: var(--primary-dark); font-size: 0.85rem; }
+ 
+/* ══════════════════════════════════
+   PAINEL DOS PAIS
+══════════════════════════════════ */
+#screen-parent { background: var(--sky-light); }
+.screen-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.screen-header h2 { font-family: var(--font-game); font-size: 1.4rem; }
+ 
+.parent-body { padding: 20px; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+.parent-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+.parent-card h3 { font-family: var(--font-game); color: var(--primary-dark); margin-bottom: 14px; font-size: 1.1rem; }
+ 
+.stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.stat-box {
+  background: var(--primary-light);
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+}
+.stat-num { font-family: var(--font-game); font-size: 1.5rem; color: var(--primary-dark); }
+.stat-box div:last-child { font-size: 0.75rem; color: #666; margin-top: 2px; }
+ 
+.skill-bars { display: flex; flex-direction: column; gap: 10px; }
+.skill-row { display: flex; align-items: center; gap: 12px; }
+.skill-row span { font-size: 0.85rem; width: 140px; flex-shrink: 0; }
+.skill-bar { flex: 1; background: #e0e0e0; border-radius: 50px; height: 12px; overflow: hidden; }
+.skill-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 50px; transition: width 1s ease; }
+ 
+/* ══════════════════════════════════
+   MODAIS
+══════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+.modal-box {
+  background: #fff;
+  border-radius: 28px;
+  padding: 32px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  animation: popIn 0.3s ease;
+  text-align: center;
+}
+@keyframes popIn { from { transform:scale(0.8); opacity:0 } to { transform:scale(1); opacity:1 } }
+ 
+.modal-box h3 { font-family: var(--font-game); color: var(--primary-dark); margin-bottom: 12px; font-size: 1.4rem; }
+.modal-box p { color: #666; margin-bottom: 16px; font-size: 0.95rem; line-height: 1.5; }
+.modal-box input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0e0e0;
+  border-radius: 14px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.modal-box input:focus { outline: none; border-color: var(--primary); }
+.modal-btns { display: flex; gap: 12px; }
+.modal-btns .btn-secondary, .modal-btns .btn-primary { flex: 1; }
+ 
+.modal-warning { border: 4px solid var(--accent); }
+.warning-icon { font-size: 4rem; margin-bottom: 8px; }
+.warning-sub { font-weight: 700; color: #333; }
+.warning-tip { margin-top: 12px; font-size: 0.85rem; color: #888; }
+ 
+.modal-reward { border: 4px solid var(--accent); }
+.reward-stars { font-size: 2.5rem; margin-bottom: 8px; animation: starSpin 0.5s ease; }
+@keyframes starSpin { from { transform:rotate(-20deg) scale(0.5) } to { transform:rotate(0) scale(1) } }
+.reward-coins { font-family: var(--font-game); font-size: 2rem; color: var(--primary-dark); margin: 12px 0; }
+ 
+.modal-complete { border: 4px solid var(--primary); }
+.complete-animation { font-size: 4rem; animation: bounce 0.6s ease infinite alternate; }
+@keyframes bounce { from { transform:translateY(0) } to { transform:translateY(-12px) } }
+.earned-badge { font-size: 2rem; margin: 12px 0; }
+ 
+/* Achievements */
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f9f9f9;
+  margin-bottom: 8px;
+}
+.achievement-icon { font-size: 1.6rem; }
+.achievement-text { font-size: 0.9rem; }
+.achievement-text strong { display: block; color: #333; }
+.achievement-text span { color: #888; font-size: 0.8rem; }
+ 
+/* Progress screen */
+#screen-progress { background: var(--sky-light); }
+.trail-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+}
+.trail-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.trail-title { font-family: var(--font-game); color: var(--primary-dark); }
+.trail-pct { font-family: var(--font-game); color: var(--primary); }
+.trail-bar { height: 14px; background: #e0e0e0; border-radius: 50px; overflow: hidden; }
+.trail-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: 50px; transition: width 1s ease; }
+.trail-missions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.mission-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #e0e0e0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #999;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.mission-dot.done { background: var(--primary); color: #fff; }
+.mission-dot.current { background: var(--accent); color: #333; animation: pulse 1s ease infinite; }
+@keyframes pulse { 0%,100% { transform:scale(1) } 50% { transform:scale(1.1) } }
+ 
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--primary-dark);
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 50px;
+  font-family: var(--font-game);
+  font-size: 1rem;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+  z-index: 200;
+  transition: transform 0.4s ease;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+ 
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f0f0f0; }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+ 
+</style>
 </head>
 <body>
  
@@ -35,7 +873,7 @@
       <input type="email" id="login-email" placeholder="E-mail do responsável" />
       <input type="password" id="login-pass" placeholder="Senha" />
       <button class="btn-primary" onclick="doLogin()">🎮 Jogar!</button>
-      <p class="link-alt">Ainda não tem conta? <a href="#" onclick="showScreen('screen-register')">Cadastrar</a></p>
+      <p class="link-alt">Ainda não tem conta? <a href="#" onclick="toggleForms()">Cadastrar</a></p>
     </div>
  
     <div id="register-form" class="form-box hidden">
@@ -53,7 +891,7 @@
         <option value="5">5º Ano</option>
       </select>
       <button class="btn-primary" onclick="doRegister()">✨ Criar conta!</button>
-      <p class="link-alt">Já tem conta? <a href="#" onclick="showScreen('screen-login')">Entrar</a></p>
+      <p class="link-alt">Já tem conta? <a href="#" onclick="toggleForms()">Entrar</a></p>
     </div>
   </div>
 </div>
@@ -359,10 +1197,2144 @@
   </div>
 </div>
  
-<script src="js/data.js"></script>
-<script src="js/avatar.js"></script>
-<script src="js/game.js"></script>
-<script src="js/missions.js"></script>
+ 
+ 
+ 
+<script>
+// ═══════════════════════════════════════
+// FINANCINHAS – DADOS DO JOGO
+// Personagens, Missões, Conquistas
+// ═══════════════════════════════════════
+ 
+const GAME_DATA = {
+ 
+  // ── PERSONAGENS ──────────────────────
+  characters: {
+    caio:    { name: "Caio",         emoji: "👦", color: "#FFD54F", desc: "Curioso e aventureiro" },
+    miguel:  { name: "Miguel",       emoji: "🧒", color: "#81C784", desc: "Aprende com o trabalho" },
+    aninha:  { name: "Aninha",       emoji: "👧", color: "#F48FB1", desc: "Organizada e planejadora" },
+    dede:    { name: "Dedé",         emoji: "🧑", color: "#FFB74D", desc: "Impulsivo mas aprende" },
+    margo:   { name: "Margô",        emoji: "👩", color: "#CE93D8", desc: "Ama compras" },
+    davi:    { name: "Davi",         emoji: "👦", color: "#4FC3F7", desc: "Compara preços" },
+    marina:  { name: "Marina",       emoji: "👧", color: "#80CBC4", desc: "Evita desperdício" },
+    bento:   { name: "Seu Bento",    emoji: "🧓", color: "#8D6E63", desc: "Dono da cooperativa" },
+    lucia:   { name: "Dona Lúcia",   emoji: "👵", color: "#F06292", desc: "Dona do mercadinho" },
+    lucas:   { name: "Prof. Lucas",  emoji: "👨‍🏫", color: "#42A5F5", desc: "Guia das missões" }
+  },
+ 
+  // ── LUGARES ──────────────────────────
+  places: {
+    home:     { name: "Casa da Família",      icon: "🏠", trail: 1, unlocked: true  },
+    school:   { name: "Escola",               icon: "🏫", trail: 2, unlocked: true  },
+    market:   { name: "Mercadinho",           icon: "🏪", trail: 3, unlocked: true  },
+    coop:     { name: "Cooperativa Sicoob",   icon: "🏦", trail: 4, unlocked: true  },
+    park:     { name: "Praça",                icon: "🌳", trail: 5, unlocked: true  },
+    workshop: { name: "Oficina",              icon: "🔧", trail: 6, unlocked: false }
+  },
+ 
+  // ── TRILHAS ──────────────────────────
+  trails: [
+    { id: 1, name: "Valor do Dinheiro",   icon: "💰", place: "home",   color: "#FFD54F" },
+    { id: 2, name: "Poupar",              icon: "🐷", place: "school", color: "#81C784" },
+    { id: 3, name: "Escolhas",            icon: "🎯", place: "market", color: "#FFB74D" },
+    { id: 4, name: "Consumo Consciente",  icon: "🌱", place: "coop",   color: "#4FC3F7" },
+    { id: 5, name: "Planejamento",        icon: "🌟", place: "park",   color: "#CE93D8" }
+  ],
+ 
+  // ── CONQUISTAS ───────────────────────
+  achievements: [
+    { id: "first_mission",  icon: "🌟", title: "Primeira Missão!",     desc: "Completou a primeira missão", coins: 5  },
+    { id: "saver",          icon: "🐷", title: "Poupador",             desc: "Guardou 50 moedas",           coins: 10 },
+    { id: "wise_shopper",   icon: "🛒", title: "Comprador Esperto",    desc: "Fez boa escolha no mercado",  coins: 8  },
+    { id: "eco_hero",       icon: "🌱", title: "Herói do Planeta",     desc: "Completou trilha consciente", coins: 15 },
+    { id: "dreamer",        icon: "🌈", title: "Sonhador",             desc: "Definiu seu primeiro sonho",  coins: 5  },
+    { id: "trail1",         icon: "💰", title: "Especialista em €",    desc: "Trilha 1 completa!",          coins: 20 },
+    { id: "trail2",         icon: "🐷", title: "Poupador Mestre",      desc: "Trilha 2 completa!",          coins: 20 },
+    { id: "trail3",         icon: "🎯", title: "Mestre das Escolhas",  desc: "Trilha 3 completa!",          coins: 20 },
+    { id: "trail4",         icon: "🌱", title: "Guardião da Terra",    desc: "Trilha 4 completa!",          coins: 20 },
+    { id: "trail5",         icon: "🌟", title: "Guardião do Dinheiro", desc: "Trilha 5 completa!",          coins: 30 }
+  ],
+ 
+  // ── RECOMPENSAS DA LOJA ──────────────
+  rewards: [
+    { id: "shirt",    cost: 10,  icon: "👕", name: "Camiseta nova",   type: "clothes" },
+    { id: "hat",      cost: 20,  icon: "🎩", name: "Chapéu legal",    type: "accessory" },
+    { id: "bag",      cost: 30,  icon: "🎒", name: "Mochila",         type: "accessory" },
+    { id: "bike",     cost: 50,  icon: "🚲", name: "Bicicleta",       type: "item" },
+    { id: "pet",      cost: 80,  icon: "🐶", name: "Mascote",         type: "item" },
+    { id: "house",    cost: 150, icon: "🏡", name: "Casa nova",       type: "item" },
+    { id: "crown",    cost: 100, icon: "👑", name: "Coroa de campeão",type: "accessory" }
+  ]
+};
+ 
+// ── MISSÕES COMPLETAS (50 missões) ────
+const MISSIONS = [
+ 
+  // ═══ TRILHA 1 – VALOR DO DINHEIRO (Casa) ═══
+  {
+    id: 1, trail: 1, place: "home", order: 1,
+    title: "O que é dinheiro?",
+    character: "lucas",
+    coinsReward: 10,
+    type: "story_choice",
+    content: {
+      story: "O Professor Lucas reúne a turma na sala. 'Crianças,' diz ele, 'vocês sabem para que serve o dinheiro?' O Caio levanta a mão bem rápido! Mas será que ele sabe a resposta certa?",
+      question: "Para que serve o dinheiro?",
+      choices: [
+        { icon: "🍭", text: "Para comprar qualquer coisa que quisermos", correct: false,
+          feedback: "Quase! O dinheiro serve para trocar por coisas, mas não podemos comprar qualquer coisa – precisamos escolher com sabedoria! 🤔" },
+        { icon: "🔄", text: "Para trocar por produtos e serviços de que precisamos", correct: true,
+          feedback: "Isso mesmo! O dinheiro é uma forma de troca. Usamos ele para conseguir coisas que precisamos ou queremos muito! 🌟" },
+        { icon: "📦", text: "Para guardar embaixo do colchão", correct: false,
+          feedback: "Guardar dinheiro é importante, mas guardá-lo em lugar seguro é melhor! E o dinheiro serve principalmente para fazer trocas. 😄" }
+      ]
+    }
+  },
+ 
+  {
+    id: 2, trail: 1, place: "home", order: 2,
+    title: "A Moeda do Caio",
+    character: "caio",
+    coinsReward: 10,
+    type: "story_choice",
+    content: {
+      story: "O Caio encontrou uma moeda brilhando no chão da praça! Uau! Ele ficou super animado. Agora ele precisa decidir o que fazer com ela.",
+      question: "O que você faria no lugar do Caio?",
+      choices: [
+        { icon: "🍭", text: "Comprar um doce imediatamente!", correct: false,
+          feedback: "Doce é gostoso, mas logo acaba. Será que existe algo melhor para fazer com a moeda? 🤔" },
+        { icon: "🐷", text: "Guardar no cofrinho para juntar mais", correct: true,
+          feedback: "Ótima ideia! Guardando a moeda, o Caio pode juntar mais e comprar algo ainda melhor depois! 💰" },
+        { icon: "👫", text: "Dividir com um amigo que precisa", correct: true,
+          feedback: "Que generosidade! Ajudar quem precisa é uma atitude incrível! Você tem um coração enorme! ❤️" }
+      ]
+    }
+  },
+ 
+  {
+    id: 3, trail: 1, place: "home", order: 3,
+    title: "De onde vem o dinheiro?",
+    character: "miguel",
+    coinsReward: 10,
+    type: "story_choice",
+    content: {
+      story: "O Miguel perguntou para a mãe: 'Mãe, por que você não compra tudo que eu peço?' A mãe sorriu e explicou como o dinheiro chega até a família.",
+      question: "De onde vem o dinheiro da família?",
+      choices: [
+        { icon: "🌳", text: "Nasce nas árvores do jardim", correct: false,
+          feedback: "Que ideia criativa! Mas não, infelizmente o dinheiro não nasce em árvores. 😄 Tem outra explicação!" },
+        { icon: "💼", text: "Vem do trabalho das pessoas", correct: true,
+          feedback: "Exatamente! O dinheiro vem do trabalho. Por isso é tão importante valorizar cada moedinha e gastar com sabedoria! 👏" },
+        { icon: "🏧", text: "A máquina do banco fabrica para todo mundo", correct: false,
+          feedback: "O banco guarda o dinheiro, mas não cria para todo mundo. O dinheiro precisa ser ganho com trabalho! 💪" }
+      ]
+    }
+  },
+ 
+  {
+    id: 4, trail: 1, place: "home", order: 4,
+    title: "Quanto custa?",
+    character: "davi",
+    coinsReward: 12,
+    type: "sort",
+    content: {
+      story: "O Davi está aprendendo a reconhecer preços no mercado. Ajude-o a organizar os itens do mais barato para o mais caro!",
+      question: "Arraste cada item para o lugar certo!",
+      items: [
+        { id: "a", emoji: "🍬", name: "Bala", price: 0.5 },
+        { id: "b", emoji: "🍎", name: "Maçã", price: 2 },
+        { id: "c", emoji: "🎒", name: "Mochila", price: 50 },
+        { id: "d", emoji: "📚", name: "Livro", price: 20 },
+        { id: "e", emoji: "🖊️", name: "Lápis", price: 1 },
+        { id: "f", emoji: "🚲", name: "Bicicleta", price: 300 }
+      ],
+      categories: ["Mais barato (até R$5)", "Mais caro (acima de R$5)"]
+    }
+  },
+ 
+  {
+    id: 5, trail: 1, place: "home", order: 5,
+    title: "O troco certo",
+    character: "davi",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Davi foi ao mercado comprar um suco por R$2. Ele deu R$5 para a Dona Lúcia. Quanto de troco ele deve receber?",
+      question: "Qual é o troco correto?",
+      choices: [
+        { icon: "💵", text: "R$ 1,00", correct: false, feedback: "Conta de novo! R$5 menos R$2 = R$3. O Davi deve receber R$3 de troco! 🔢" },
+        { icon: "💵", text: "R$ 3,00", correct: true, feedback: "Isso! R$5 - R$2 = R$3. Você sabe fazer conta de troco! Ótimo! 🎉" },
+        { icon: "💵", text: "R$ 4,00", correct: false, feedback: "Quase! R$5 menos R$2 = R$3, não R$4. Tente de novo! 💪" }
+      ]
+    }
+  },
+ 
+  {
+    id: 6, trail: 1, place: "home", order: 6,
+    title: "Necessidade ou desejo?",
+    character: "margo",
+    coinsReward: 12,
+    type: "sort",
+    content: {
+      story: "A Margô quer comprar várias coisas, mas precisa aprender a diferença entre o que é necessidade e o que é desejo. Ajude ela!",
+      question: "Separe os itens em: PRECISO ou QUERO!",
+      items: [
+        { id: "a", emoji: "🥗", name: "Comida", category: 0 },
+        { id: "b", emoji: "🎮", name: "Videogame", category: 1 },
+        { id: "c", emoji: "👗", name: "Roupa bonita extra", category: 1 },
+        { id: "d", emoji: "💊", name: "Remédio", category: 0 },
+        { id: "e", emoji: "📚", name: "Material escolar", category: 0 },
+        { id: "f", emoji: "🍭", name: "Doce caro", category: 1 }
+      ],
+      categories: ["Preciso (Necessidade)", "Quero (Desejo)"]
+    }
+  },
+ 
+  {
+    id: 7, trail: 1, place: "home", order: 7,
+    title: "Guardando no cofrinho",
+    character: "caio",
+    coinsReward: 15,
+    type: "piggy",
+    content: {
+      story: "O Caio ganhou mesada! Ele quer praticar guardar dinheiro no cofrinho. Cada vez que você clicar no cofrinho, uma moeda entra! Meta: 10 moedas!",
+      question: "Clique no cofrinho para guardar moedas!",
+      target: 10
+    }
+  },
+ 
+  {
+    id: 8, trail: 1, place: "home", order: 8,
+    title: "Comprar ou esperar?",
+    character: "dede",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Dedé viu um brinquedo incrível na vitrine! Mas ele só tem a metade do dinheiro. O Dedé está com muita vontade de comprar logo...",
+      question: "O que o Dedé deve fazer?",
+      choices: [
+        { icon: "💳", text: "Pedir para o pai pagar o resto agora", correct: false,
+          feedback: "Pedir ajuda pode ser necessário às vezes, mas aprender a guardar e esperar é muito mais especial! Tente novamente." },
+        { icon: "⏳", text: "Guardar dinheiro por mais algum tempo e comprar depois", correct: true,
+          feedback: "Que sabedoria! Esperar e guardar torna a compra muito mais especial. O Dedé vai ficar muito orgulhoso de si mesmo! 🌟" },
+        { icon: "😤", text: "Ficar bravo e não comprar nada nunca", correct: false,
+          feedback: "Ficar bravo não resolve! A melhor resposta é guardar pouquinho por dia até ter o suficiente! 💪" }
+      ]
+    }
+  },
+ 
+  {
+    id: 9, trail: 1, place: "home", order: 9,
+    title: "A escolha do lanche",
+    character: "aninha",
+    coinsReward: 12,
+    type: "budget",
+    content: {
+      story: "A Aninha tem R$5 para o lanche. Ela quer comprar com sabedoria! Ajude-a a escolher um lanche que caiba no orçamento.",
+      budget: 5,
+      items: [
+        { emoji: "🥤", name: "Suco", price: 2, healthy: true },
+        { emoji: "🥙", name: "Lanche", price: 3, healthy: true },
+        { emoji: "🍭", name: "Bala", price: 0.5, healthy: false },
+        { emoji: "🍫", name: "Chocolate", price: 4, healthy: false },
+        { emoji: "🍎", name: "Fruta", price: 1.5, healthy: true },
+        { emoji: "🧃", name: "Caixinha", price: 2.5, healthy: true }
+      ],
+      tip: "Tente escolher itens saudáveis que caibam no orçamento!"
+    }
+  },
+ 
+  {
+    id: 10, trail: 1, place: "home", order: 10,
+    title: "Guardião das Moedas",
+    character: "lucas",
+    coinsReward: 20,
+    type: "story_choice",
+    content: {
+      story: "Parabéns! O Professor Lucas está impressionado com o que você aprendeu. Agora é hora do grande teste! Você é um verdadeiro Guardião das Moedas?",
+      question: "Qual é a atitude mais inteligente com o dinheiro?",
+      choices: [
+        { icon: "🎯", text: "Gastar tudo assim que receber para ter coisas novas", correct: false,
+          feedback: "Gastar tudo de uma vez não é sábio! Sempre é bom guardar um pouco para emergências ou sonhos futuros. 🤔" },
+        { icon: "💰", text: "Guardar um pouco, gastar com sabedoria e planejar", correct: true,
+          feedback: "PERFEITO! Você é um verdadeiro Guardião das Moedas! Guardar + planejar + gastar com sabedoria = vida financeira saudável! 🏆" },
+        { icon: "🐷", text: "Guardar absolutamente tudo e nunca gastar nada", correct: false,
+          feedback: "Guardar é ótimo, mas o dinheiro também serve para satisfazer nossas necessidades com sabedoria! Equilíbrio é a chave! ⚖️" }
+      ]
+    }
+  },
+ 
+  // ═══ TRILHA 2 – POUPAR (Escola) ═══
+  {
+    id: 11, trail: 2, place: "school", order: 1,
+    title: "O Cofrinho Mágico",
+    character: "caio",
+    coinsReward: 10,
+    type: "piggy",
+    content: {
+      story: "Na escola, a Prof. Ana ensinou que guardar dinheiro todo dia, mesmo pouco, faz grande diferença! O Caio quer experimentar. Ajude-o a encher o cofrinho!",
+      question: "Clique no cofrinho para guardar moedas! Meta: 15 moedas!",
+      target: 15
+    }
+  },
+ 
+  {
+    id: 12, trail: 2, place: "school", order: 2,
+    title: "Esperar 3 dias",
+    character: "dede",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Dedé viu um carrinho de controle remoto na loja. Ele ficou LOUCO de vontade! O pai do Dedé ensinou a 'regra dos 3 dias': espere 3 dias antes de comprar.",
+      question: "Por que esperar 3 dias antes de comprar algo?",
+      choices: [
+        { icon: "🤔", text: "Para ver se a vontade de comprar continua ou some", correct: true,
+          feedback: "Exatamente! Às vezes a vontade passa rápido. Esperar ajuda a decidir se realmente queremos ou foi só impulso! 🧠" },
+        { icon: "😴", text: "Porque a loja fica fechada 3 dias", correct: false,
+          feedback: "Não é isso! A regra dos 3 dias é para dar tempo de pensar com calma se realmente queremos ou precisamos do item. 😊" },
+        { icon: "💸", text: "Para economizar dinheiro nesse tempo", correct: false,
+          feedback: "Economizar é ótimo, mas a principal razão é pensar com calma. Às vezes depois de 3 dias a vontade passa! 🤔" }
+      ]
+    }
+  },
+ 
+  {
+    id: 13, trail: 2, place: "school", order: 3,
+    title: "Meta de economia",
+    character: "aninha",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "A Aninha quer comprar um livro de histórias que custa R$20. Ela recebe R$5 de mesada por semana. Ela está animada para calcular!",
+      question: "Quantas semanas a Aninha precisa guardar a mesada inteira?",
+      choices: [
+        { icon: "📅", text: "2 semanas", correct: false, feedback: "Conta de novo! R$20 ÷ R$5 = 4 semanas. Ela precisa de um pouquinho mais de paciência! 😊" },
+        { icon: "📅", text: "4 semanas", correct: true, feedback: "Isso! 4 semanas × R$5 = R$20. A Aninha vai ter o livro em um mês guardando toda a mesada! 📚🎉" },
+        { icon: "📅", text: "6 semanas", correct: false, feedback: "6 × R$5 = R$30, que é mais do que o livro custa. São apenas 4 semanas! 🔢" }
+      ]
+    }
+  },
+ 
+  {
+    id: 14, trail: 2, place: "school", order: 4,
+    title: "Comparando preços",
+    character: "davi",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Davi precisa comprar uma mochila nova. Ele encontrou a mesma mochila em duas lojas: Loja A por R$45 e Loja B por R$38.",
+      question: "Qual é a decisão mais inteligente do Davi?",
+      choices: [
+        { icon: "🏪", text: "Comprar na Loja A porque fica mais perto", correct: false,
+          feedback: "A praticidade é importante, mas economizar R$7 é muito legal! Com esse dinheiro dá pra comprar mais coisas! 💡" },
+        { icon: "🏪", text: "Comprar na Loja B e economizar R$7", correct: true,
+          feedback: "Muito bem! Comparar preços é um hábito de consumidor inteligente. O Davi economizou R$7! 🛒💰" },
+        { icon: "🚶", text: "Não comprar em nenhuma e continuar sem mochila", correct: false,
+          feedback: "Se ele precisa da mochila, o melhor é comprar na mais barata. Não comprar quando precisa também não é sábio! 😊" }
+      ]
+    }
+  },
+ 
+  {
+    id: 15, trail: 2, place: "school", order: 5,
+    title: "Seu primeiro sonho",
+    character: "aninha",
+    coinsReward: 15,
+    type: "story_choice",
+    content: {
+      story: "A Aninha está super empolgada! Ela aprendeu que todo grande objetivo começa com um sonho e um plano. Ela quer ensinar você a ter seu sonho financeiro!",
+      question: "Qual é o melhor jeito de realizar um sonho que custa dinheiro?",
+      choices: [
+        { icon: "🌟", text: "Definir o sonho, calcular quanto custa e guardar pouquinho todo dia", correct: true,
+          feedback: "Perfeito! Sonho + Plano + Ação diária = REALIZAÇÃO! Você já entende o segredo dos poupadores campeões! 🏆" },
+        { icon: "😢", text: "Esperar alguém te dar de presente", correct: false,
+          feedback: "Presentes são ótimos, mas conquistar algo com seu próprio esforço tem um sabor especial! Tente com seu próprio plano! 💪" },
+        { icon: "💳", text: "Pedir emprestado e pagar depois", correct: false,
+          feedback: "Pegar emprestado pode criar problemas. Melhor planejar e guardar! Demora mais mas a conquista é muito mais especial! ⭐" }
+      ]
+    }
+  },
+ 
+  // Missões 16-20 (Trail 2 continuação)
+  {
+    id: 16, trail: 2, place: "school", order: 6,
+    title: "O cofrinho crescendo",
+    character: "caio",
+    coinsReward: 15,
+    type: "piggy",
+    content: {
+      story: "O Caio está vendo seu cofrinho crescer todo dia! Ele fica tão feliz quando vê o progresso. Ajude-o a juntar mais moedas hoje! Meta: 20!",
+      question: "Clique no cofrinho! Meta: 20 moedas!",
+      target: 20
+    }
+  },
+ 
+  {
+    id: 17, trail: 2, place: "school", order: 7,
+    title: "Resistir ao impulso",
+    character: "dede",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Dedé estava guardando dinheiro para uma bicicleta. No caminho para a escola, viu um carrinho de pipoca e ficou com muita vontade... Ele tinha quase todo dinheiro da bicicleta!",
+      question: "O que o Dedé deve fazer?",
+      choices: [
+        { icon: "🍿", text: "Comprar a pipoca, vida é para aproveitar!", correct: false,
+          feedback: "Aproveitar é bom, mas gastar o dinheiro da bicicleta atrasa o sonho. Pense bem! 🤔" },
+        { icon: "💪", text: "Resistir e continuar guardando para a bicicleta", correct: true,
+          feedback: "Força de vontade! O Dedé está aprendendo a controlar impulsos. A bicicleta vai chegar logo! 🚲🏆" },
+        { icon: "🤝", text: "Pedir para um amigo comprar e pagar depois", correct: false,
+          feedback: "Pedir emprestado pode criar problemas. Resistir ao impulso é a melhor escolha! 💪" }
+      ]
+    }
+  },
+ 
+  {
+    id: 18, trail: 2, place: "school", order: 8,
+    title: "Prioridades",
+    character: "aninha",
+    coinsReward: 12,
+    type: "sort",
+    content: {
+      story: "A Aninha tem dinheiro para comprar apenas UMA coisa. Ajude-a a organizar suas prioridades do mais importante para o menos importante!",
+      question: "Organize do mais prioritário para o menos prioritário",
+      items: [
+        { id: "a", emoji: "📚", name: "Material escolar" },
+        { id: "b", emoji: "🎮", name: "Jogo novo" },
+        { id: "c", emoji: "🩺", name: "Consulta médica" },
+        { id: "d", emoji: "🍭", name: "Doces" }
+      ],
+      categories: ["Mais importante", "Menos importante"]
+    }
+  },
+ 
+  {
+    id: 19, trail: 2, place: "school", order: 9,
+    title: "Lista de compras",
+    character: "marina",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "A Marina vai ao mercado com a mamãe. Ela aprendeu um truque incrível para não desperdiçar dinheiro: fazer lista de compras ANTES de ir à loja!",
+      question: "Por que fazer lista de compras antes de ir ao mercado?",
+      choices: [
+        { icon: "📝", text: "Para não esquecer o que precisa e não comprar o que não precisa", correct: true,
+          feedback: "Exato! A lista evita esquecimentos E compras por impulso. É o segredo dos consumidores inteligentes! 🛒✨" },
+        { icon: "😅", text: "Para mostrar para os amigos o que vai comprar", correct: false,
+          feedback: "Haha! A lista não é para mostrar. Ela ajuda a se organizar e economizar dinheiro! 😄" },
+        { icon: "🤷", text: "Não precisa de lista, a memória dá conta", correct: false,
+          feedback: "Confiar só na memória pode fazer esquecer itens importantes ou comprar coisas desnecessárias. Lista é sempre melhor! 📝" }
+      ]
+    }
+  },
+ 
+  {
+    id: 20, trail: 2, place: "school", order: 10,
+    title: "Poupador Mestre!",
+    character: "lucas",
+    coinsReward: 25,
+    type: "story_choice",
+    content: {
+      story: "Uau! Você concluiu a Trilha do Poupar! O Professor Lucas quer saber se você memorizou o segredo do poupador campeão!",
+      question: "Qual é o segredo do poupador campeão?",
+      choices: [
+        { icon: "🏆", text: "Guardar um pouco todo dia, ter metas e resistir a impulsos", correct: true,
+          feedback: "CAMPEÃO! Você aprendeu os 3 segredos: Guardar + ter Metas + resistir a Impulsos. Você é um POUPADOR MESTRE! 🏆🌟" },
+        { icon: "💸", text: "Ganhar muito dinheiro para nunca precisar economizar", correct: false,
+          feedback: "Ganhar mais ajuda, mas sem bons hábitos o dinheiro some rápido! O segredo é guardar, ter metas e resistir a impulsos! 💪" },
+        { icon: "😴", text: "Esperar que o dinheiro apareça sozinho", correct: false,
+          feedback: "O dinheiro não vem sozinho! Precisamos trabalhar, guardar e planejar. Você sabe disso! 😊" }
+      ]
+    }
+  },
+ 
+  // ═══ TRILHA 3 – ESCOLHAS (Mercadinho) ═══
+  {
+    id: 21, trail: 3, place: "market", order: 1,
+    title: "No Mercadinho da Dona Lúcia",
+    character: "lucia",
+    coinsReward: 10,
+    type: "budget",
+    content: {
+      story: "A Dona Lúcia tem um mercadinho cheio de coisas! O Davi chegou com R$8 para comprar o lanche da semana. Ajude-o a escolher bem!",
+      budget: 8,
+      items: [
+        { emoji: "🍞", name: "Pão", price: 2, healthy: true },
+        { emoji: "🧀", name: "Queijo", price: 3, healthy: true },
+        { emoji: "🍫", name: "Chocolate", price: 4.5, healthy: false },
+        { emoji: "🥤", name: "Suco", price: 2.5, healthy: true },
+        { emoji: "🍭", name: "Bala", price: 1, healthy: false },
+        { emoji: "🧁", name: "Cupcake", price: 5, healthy: false }
+      ],
+      tip: "Escolha itens nutritivos que caibam no orçamento!"
+    }
+  },
+ 
+  {
+    id: 22, trail: 3, place: "market", order: 2,
+    title: "Promoção ou armadilha?",
+    character: "margo",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "A Margô viu uma placa: 'PROMOÇÃO! Leve 3 pague 2!' Ela não precisava daquilo, mas ficou animada com a promoção...",
+      question: "A Margô deve comprar por causa da promoção?",
+      choices: [
+        { icon: "🤔", text: "Não, se não precisa é desperdício mesmo com promoção", correct: true,
+          feedback: "Exato! Promoção só é boa quando você precisa do produto! Comprar o que não precisa nunca é economizar! 🧠💡" },
+        { icon: "🛒", text: "Sim! Promoção sempre vale a pena comprar!", correct: false,
+          feedback: "Cuidado! Promoção pode ser uma armadilha. Se você não precisa do produto, não está economizando, está gastando! 🤔" },
+        { icon: "📦", text: "Comprar e guardar para usar no futuro", correct: false,
+          feedback: "Às vezes funciona, mas guardar mais do que precisa pode ser desperdício. Melhor pensar bem antes! 💭" }
+      ]
+    }
+  },
+ 
+  {
+    id: 23, trail: 3, place: "market", order: 3,
+    title: "Evitar desperdício",
+    character: "marina",
+    coinsReward: 12,
+    type: "sort",
+    content: {
+      story: "A Marina está aprendendo que desperdiçar é jogar dinheiro fora! Ajude-a a separar as atitudes que evitam desperdício das que causam desperdício.",
+      question: "Separe as atitudes!",
+      items: [
+        { id: "a", emoji: "🔌", name: "Desligar a luz ao sair", category: 0 },
+        { id: "b", emoji: "🚿", name: "Deixar torneira aberta", category: 1 },
+        { id: "c", emoji: "🍱", name: "Terminar a comida do prato", category: 0 },
+        { id: "d", emoji: "🗑️", name: "Jogar comida fora", category: 1 },
+        { id: "e", emoji: "♻️", name: "Reutilizar objetos", category: 0 },
+        { id: "f", emoji: "💡", name: "Deixar luz acesa", category: 1 }
+      ],
+      categories: ["Evita desperdício ✅", "Causa desperdício ❌"]
+    }
+  },
+ 
+  {
+    id: 24, trail: 3, place: "market", order: 4,
+    title: "O melhor negócio",
+    character: "davi",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Davi encontrou dois sucos: Suco A custa R$4 e tem 200ml. Suco B custa R$5 e tem 500ml. Qual tem o melhor preço por quantidade?",
+      question: "Qual suco tem o melhor preço por ml?",
+      choices: [
+        { icon: "🥤", text: "Suco A (R$4 / 200ml)", correct: false,
+          feedback: "O Suco A custa R$0,02 por ml. O Suco B custa R$0,01 por ml. O B tem o melhor preço! 🔢" },
+        { icon: "🧃", text: "Suco B (R$5 / 500ml)", correct: true,
+          feedback: "Muito bem! Mesmo custando mais, o Suco B tem melhor custo-benefício! Você pensa como um consumidor esperto! 🏆" },
+        { icon: "🤷", text: "São iguais", correct: false,
+          feedback: "Não são iguais! O Suco B dá mais quantidade pelo preço. Divide o preço pela quantidade para descobrir! 🔢" }
+      ]
+    }
+  },
+ 
+  {
+    id: 25, trail: 3, place: "market", order: 5,
+    title: "Consertar ou jogar fora?",
+    character: "marina",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O brinquedo favorito da Marina quebrou um pouquinho. O papai disse que pode consertar. Mas a Marina ficou com vontade de pedir um novo...",
+      question: "O que é mais inteligente fazer?",
+      choices: [
+        { icon: "🔧", text: "Consertar o brinquedo e continuar usando", correct: true,
+          feedback: "Ótima atitude! Consertar economiza dinheiro, reduz lixo e ensina a valorizar o que temos! 🌍💚" },
+        { icon: "🛒", text: "Pedir um brinquedo novo imediatamente", correct: false,
+          feedback: "Um novo seria legal, mas consertar é mais econômico e sustentável! Dar valor ao que temos é muito importante! 🤔" },
+        { icon: "🗑️", text: "Jogar fora e ficar sem brinquedo", correct: false,
+          feedback: "Jogar fora não é bom para o meio ambiente nem para o bolso! Sempre tente consertar primeiro! ♻️" }
+      ]
+    }
+  },
+ 
+  // Missões 26-30 (Trail 3 continuação simplificada)
+  {
+    id: 26, trail: 3, place: "market", order: 6,
+    title: "Trocar brinquedos",
+    character: "marina",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "A Marina está entediada com seus brinquedos mas seu amigo Jonas tem brinquedos que ela ainda não conhece. O Jonas também está entediado com os dele!",
+      question: "O que Marina e Jonas podem fazer?",
+      choices: [
+        { icon: "🔄", text: "Trocar brinquedos por um tempo!", correct: true,
+          feedback: "Perfeito! Trocar brinquedos com amigos é super divertido e não custa nada! Todo mundo ganha! 🎉" },
+        { icon: "🛒", text: "Cada um pedir brinquedos novos para os pais", correct: false,
+          feedback: "Pedir novos quando os velhos ainda funcionam pode ser desperdício. Que tal trocar com o Jonas? 🤔" },
+        { icon: "😔", text: "Ficar em casa entediado", correct: false,
+          feedback: "Que pena! A solução criativa e econômica é trocar com o amigo! Criatividade economiza dinheiro! 💡" }
+      ]
+    }
+  },
+ 
+  {
+    id: 27, trail: 3, place: "market", order: 7,
+    title: "Pensar antes de gastar",
+    character: "dede",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Dedé foi ao mercado com a mãe e ficou com vontade de comprar um brinquedo que estava na entrada da loja. Ele ficou animado mas não tinha planejado isso.",
+      question: "O que o Dedé deve fazer?",
+      choices: [
+        { icon: "🤔", text: "Pensar: 'Eu realmente preciso? Tenho dinheiro guardado para isso?'", correct: true,
+          feedback: "Excelente! Pausar e pensar antes de gastar é o hábito que separa os gastadores dos poupadores! 🧠⭐" },
+        { icon: "💨", text: "Comprar rápido antes de mudar de ideia", correct: false,
+          feedback: "Comprar rápido no impulso geralmente leva ao arrependimento! Pensar primeiro é sempre melhor! 🤔" },
+        { icon: "😤", text: "Fazer birra até a mãe comprar", correct: false,
+          feedback: "Birra não resolve e ainda deixa todo mundo chateado! Pensar com calma é sempre a melhor opção! 💛" }
+      ]
+    }
+  },
+ 
+  {
+    id: 28, trail: 3, place: "market", order: 8,
+    title: "Lanche saudável",
+    character: "aninha",
+    coinsReward: 15,
+    type: "budget",
+    content: {
+      story: "A Aninha tem R$6 para o lanche e quer escolher algo nutritivo e dentro do orçamento. Ajude-a a montar um lanche saudável!",
+      budget: 6,
+      items: [
+        { emoji: "🍌", name: "Banana", price: 1, healthy: true },
+        { emoji: "🥪", name: "Sanduíche", price: 4, healthy: true },
+        { emoji: "💧", name: "Água", price: 1, healthy: true },
+        { emoji: "🍕", name: "Pizza", price: 7, healthy: false },
+        { emoji: "🧁", name: "Cupcake", price: 5, healthy: false },
+        { emoji: "🥛", name: "Leite", price: 2.5, healthy: true }
+      ],
+      tip: "Monte um lanche nutritivo dentro do orçamento!"
+    }
+  },
+ 
+  {
+    id: 29, trail: 3, place: "market", order: 9,
+    title: "Compartilhar é bom",
+    character: "caio",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Caio comprou uma caixa grande de biscoitos. Seus amigos estavam com fome mas sem dinheiro. O Caio ficou pensando...",
+      question: "O que o Caio deve fazer?",
+      choices: [
+        { icon: "🍪", text: "Compartilhar os biscoitos com os amigos", correct: true,
+          feedback: "Que coração generoso! Compartilhar fortalece amizades e faz todo mundo feliz! Caio é um amigo incrível! ❤️" },
+        { icon: "🙅", text: "Esconder e comer tudo sozinho", correct: false,
+          feedback: "Comer escondido não é legal. Compartilhar torna os momentos muito mais especiais! 🤔" },
+        { icon: "💰", text: "Vender para os amigos", correct: false,
+          feedback: "Com amigos próximos, compartilhar de graça fortalece muito mais a amizade! 😊" }
+      ]
+    }
+  },
+ 
+  {
+    id: 30, trail: 3, place: "market", order: 10,
+    title: "Mestre das Escolhas!",
+    character: "lucia",
+    coinsReward: 25,
+    type: "story_choice",
+    content: {
+      story: "A Dona Lúcia ficou impressionada com o quanto você aprendeu sobre fazer escolhas inteligentes no mercado! Ela tem uma última pergunta...",
+      question: "O que define uma escolha de compra inteligente?",
+      choices: [
+        { icon: "🏆", text: "Comprar o que precisa, pelo melhor preço, sem desperdiçar", correct: true,
+          feedback: "PERFEITO! Você é o MESTRE DAS ESCOLHAS! Preciso + Melhor preço + Sem desperdício = Consumidor inteligente! 🏆🎉" },
+        { icon: "💸", text: "Comprar o mais caro porque é sempre o melhor", correct: false,
+          feedback: "Nem sempre o mais caro é o melhor! Comparar e escolher com sabedoria é o caminho! 🤔" },
+        { icon: "🤷", text: "Comprar o mais barato sempre, não importa a qualidade", correct: false,
+          feedback: "Qualidade também importa! A escolha inteligente considera preço, qualidade e necessidade juntos! ⚖️" }
+      ]
+    }
+  },
+ 
+  // ═══ TRILHA 4 – CONSUMO CONSCIENTE (Cooperativa) ═══
+  {
+    id: 31, trail: 4, place: "coop", order: 1,
+    title: "Seu Bento explica",
+    character: "bento",
+    coinsReward: 10,
+    type: "story_choice",
+    content: {
+      story: "O Seu Bento, dono da Cooperativa Sicoob, reúne as crianças. 'Consumo consciente,' ele diz, 'é pensar no planeta e no bolso ao mesmo tempo!'",
+      question: "O que significa consumir de forma consciente?",
+      choices: [
+        { icon: "🌍", text: "Pensar no impacto das nossas compras no planeta e na sociedade", correct: true,
+          feedback: "Exatamente! Consumo consciente é pensar: 'Preciso disso? Como foi feito? Vai gerar muito lixo?' Você é um consumidor consciente! 🌿" },
+        { icon: "🛒", text: "Comprar tudo que é anunciado na TV", correct: false,
+          feedback: "Propaganda quer que compremos mais. Consumo consciente é o oposto: pensar antes de comprar! 🤔" },
+        { icon: "💰", text: "Comprar só o que for barato", correct: false,
+          feedback: "Preço importa, mas consumo consciente vai além: pensa no meio ambiente, na necessidade real e no impacto social! 🌱" }
+      ]
+    }
+  },
+ 
+  {
+    id: 32, trail: 4, place: "coop", order: 2,
+    title: "Economizando água",
+    character: "marina",
+    coinsReward: 12,
+    type: "sort",
+    content: {
+      story: "A Marina aprendeu que economizar água também economiza dinheiro na conta da família! Ajude-a a separar as atitudes certas.",
+      question: "Separe: Economiza água / Desperdiça água",
+      items: [
+        { id: "a", emoji: "🚿", name: "Banho rápido (5 min)", category: 0 },
+        { id: "b", emoji: "🚿", name: "Banho de 30 min", category: 1 },
+        { id: "c", emoji: "🦷", name: "Fechar torneira ao escovar", category: 0 },
+        { id: "d", emoji: "🦷", name: "Deixar torneira aberta", category: 1 },
+        { id: "e", emoji: "🌧️", name: "Reutilizar água da chuva", category: 0 },
+        { id: "f", emoji: "🚗", name: "Lavar carro com mangueira aberta", category: 1 }
+      ],
+      categories: ["Economiza água 💧", "Desperdiça água 😔"]
+    }
+  },
+ 
+  {
+    id: 33, trail: 4, place: "coop", order: 3,
+    title: "Energia em casa",
+    character: "marina",
+    coinsReward: 12,
+    type: "sort",
+    content: {
+      story: "O Seu Bento ensinou que economizar energia elétrica também economiza dinheiro da família! Cada luz apagada conta!",
+      question: "Separe as atitudes de economia de energia!",
+      items: [
+        { id: "a", emoji: "💡", name: "Apagar luz ao sair", category: 0 },
+        { id: "b", emoji: "📺", name: "Deixar TV ligada sem assistir", category: 1 },
+        { id: "c", emoji: "🌞", name: "Usar luz natural do dia", category: 0 },
+        { id: "d", emoji: "❄️", name: "Abrir geladeira várias vezes", category: 1 },
+        { id: "e", emoji: "🔌", name: "Desligar carregador da tomada", category: 0 },
+        { id: "f", emoji: "🎮", name: "Jogar videogame o dia todo", category: 1 }
+      ],
+      categories: ["Economiza energia ✅", "Desperdiça energia ❌"]
+    }
+  },
+ 
+  {
+    id: 34, trail: 4, place: "coop", order: 4,
+    title: "Não desperdiçar comida",
+    character: "marina",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "Na escola, a Marina viu amigos jogando metade do lanche fora. Ela ficou preocupada: 'Isso é desperdício de comida e de dinheiro!'",
+      question: "Por que não devemos desperdiçar comida?",
+      choices: [
+        { icon: "🌍", text: "Porque é desperdício de dinheiro, trabalho e recursos naturais", correct: true,
+          feedback: "Muito bem! A comida custou dinheiro, trabalho de agricultores e recursos da natureza. Desperdiçar é jogar tudo isso fora! 🌱" },
+        { icon: "😅", text: "Porque a professora vai ficar brava", correct: false,
+          feedback: "A professora ficaria chateada mesmo, mas a razão principal vai além: é respeito com o dinheiro e o meio ambiente! 🤔" },
+        { icon: "🤷", text: "Não tem problema jogar fora, tem comida de sobra", correct: false,
+          feedback: "Não é bem assim. Muitas pessoas não têm o suficiente para comer. Valorizar a comida é muito importante! 💛" }
+      ]
+    }
+  },
+ 
+  {
+    id: 35, trail: 4, place: "coop", order: 5,
+    title: "Menos plástico",
+    character: "bento",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Seu Bento trouxe uma garrafa reutilizável para mostrar às crianças. 'Garrafa d'água reutilizável parece mais caro no começo, mas...'",
+      question: "A garrafa reutilizável é mais econômica que comprar garrafinhas?",
+      choices: [
+        { icon: "♻️", text: "Sim! Economiza dinheiro a longo prazo e ajuda o planeta", correct: true,
+          feedback: "Isso! Uma garrafa de R$30 dura anos. Garrafinhas descartáveis custam R$2 ou mais cada dia. É muito mais econômico e sustentável! 🌍" },
+        { icon: "💸", text: "Não, é mais caro comprar uma garrafa boa", correct: false,
+          feedback: "Parece caro no começo, mas a conta muda rápido! Em poucos meses a garrafa reutilizável já valeu muito mais! 🔢" },
+        { icon: "🤷", text: "Tanto faz, o preço é igual", correct: false,
+          feedback: "Não é igual! Calcule: R$2/dia em garrafinhas = R$60/mês. Uma garrafa boa custa isso uma única vez! 💡" }
+      ]
+    }
+  },
+ 
+  // Missões 36-40 simplificadas
+  {
+    id: 36, trail: 4, place: "coop", order: 6,
+    title: "Reciclar e reutilizar",
+    character: "bento",
+    coinsReward: 12,
+    type: "sort",
+    content: {
+      story: "O Seu Bento mostrou como objetos podem ter uma segunda vida! Ajude a separar o que pode ser reutilizado do que deve ir para o lixo.",
+      question: "Reutilizar ou Jogar fora?",
+      items: [
+        { id: "a", emoji: "📦", name: "Caixa de papelão", category: 0 },
+        { id: "b", emoji: "🧴", name: "Pote de plástico", category: 0 },
+        { id: "c", emoji: "🩹", name: "Curativo usado", category: 1 },
+        { id: "d", emoji: "📰", name: "Jornal velho", category: 0 },
+        { id: "e", emoji: "🥫", name: "Lata vazia", category: 0 },
+        { id: "f", emoji: "🦠", name: "Máscara velha", category: 1 }
+      ],
+      categories: ["Pode reutilizar ♻️", "Jogar fora 🗑️"]
+    }
+  },
+ 
+  {
+    id: 37, trail: 4, place: "coop", order: 7,
+    title: "Cooperativa: o que é?",
+    character: "bento",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Seu Bento explica orgulhoso: 'A Cooperativa Sicoob é diferente de um banco normal. Aqui TODOS somos donos e ajudamos uns aos outros!'",
+      question: "O que torna uma cooperativa especial?",
+      choices: [
+        { icon: "🤝", text: "Todos cooperam, todos ganham juntos", correct: true,
+          feedback: "Perfeito! Na cooperativa, os membros são donos e os lucros beneficiam a todos. É a força da união! 🌟🤝" },
+        { icon: "💼", text: "Um dono fica com todo o lucro", correct: false,
+          feedback: "Isso é empresa tradicional. Na cooperativa é diferente: os lucros são divididos entre todos os membros! 🤝" },
+        { icon: "🏛️", text: "É igual a um banco comum", correct: false,
+          feedback: "A cooperativa é bem diferente! Todos são donos, os lucros são divididos e as decisões são tomadas juntos! 🌟" }
+      ]
+    }
+  },
+ 
+  {
+    id: 38, trail: 4, place: "coop", order: 8,
+    title: "Moda consciente",
+    character: "margo",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "A Margô adora roupas, mas o armário está cheio! Ela quer comprar mais, mas a mamãe a fez pensar...",
+      question: "O que a Margô deve fazer com as roupas que não usa mais?",
+      choices: [
+        { icon: "♻️", text: "Doar para quem precisa ou trocar com amigas", correct: true,
+          feedback: "Que atitude linda! Doar ou trocar roupas é consumo consciente: libera espaço, ajuda outros e é sustentável! 💚" },
+        { icon: "🛒", text: "Comprar mais roupas e empilhar tudo", correct: false,
+          feedback: "Empilhar roupas que não usa é desperdício. Melhor dar destino para o que não usa e pensar se realmente precisa das novas! 🤔" },
+        { icon: "🗑️", text: "Jogar tudo fora", correct: false,
+          feedback: "Jogar roupas fora é desperdício enorme! Doação e troca são muito melhores opções! ♻️💚" }
+      ]
+    }
+  },
+ 
+  {
+    id: 39, trail: 4, place: "coop", order: 9,
+    title: "Dinheiro na cooperativa",
+    character: "bento",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Seu Bento explica: 'Guardar dinheiro na cooperativa Sicoob é diferente de esconder em casa. O dinheiro fica seguro E pode crescer!'",
+      question: "Por que é melhor guardar dinheiro em uma instituição segura?",
+      choices: [
+        { icon: "🏦", text: "Fica protegido, pode render e há registro de tudo", correct: true,
+          feedback: "Exato! Na cooperativa ou banco o dinheiro é protegido, pode crescer com juros e é muito mais seguro que em casa! 🌟" },
+        { icon: "🛏️", text: "Debaixo do colchão é mais seguro", correct: false,
+          feedback: "Debaixo do colchão pode ser perdido, roubado ou destruído. Instituições financeiras são muito mais seguras! 🏦" },
+        { icon: "🛒", text: "Melhor gastar logo para não perder", correct: false,
+          feedback: "Gastar tudo não é solução! Guardar em lugar seguro protege seu dinheiro para quando realmente precisar! 💪" }
+      ]
+    }
+  },
+ 
+  {
+    id: 40, trail: 4, place: "coop", order: 10,
+    title: "Guardião da Terra!",
+    character: "bento",
+    coinsReward: 25,
+    type: "story_choice",
+    content: {
+      story: "O Seu Bento bate palmas! 'Você completou a trilha do Consumo Consciente! Agora é um verdadeiro Guardião da Terra e do bolso!'",
+      question: "O que define um consumidor consciente?",
+      choices: [
+        { icon: "🌍", text: "Alguém que pensa no planeta, na sociedade e no bolso ao comprar", correct: true,
+          feedback: "GUARDIÃO DA TERRA! Você entendeu que consumo consciente é cuidar do planeta E do bolso ao mesmo tempo! 🌍🏆💚" },
+        { icon: "🛒", text: "Alguém que compra tudo que está em promoção", correct: false,
+          feedback: "Promoção não define consumo consciente! É pensar no impacto de cada compra: preciso? Como foi feito? Gera lixo? 🌱" },
+        { icon: "💸", text: "Alguém que nunca compra nada para economizar", correct: false,
+          feedback: "Consumo zero não é o objetivo! Consumo consciente é comprar o que precisa, de forma responsável e sustentável! ⚖️" }
+      ]
+    }
+  },
+ 
+  // ═══ TRILHA 5 – PLANEJAMENTO (Praça) ═══
+  {
+    id: 41, trail: 5, place: "park", order: 1,
+    title: "O Sonho da Praça",
+    character: "aninha",
+    coinsReward: 10,
+    type: "story_choice",
+    content: {
+      story: "Na praça, a Aninha olha para o céu e sonha... Ela quer uma bicicleta novinha! Mas antes de ter a bicicleta, ela precisa de um PLANO!",
+      question: "Qual é o primeiro passo para realizar um sonho que custa dinheiro?",
+      choices: [
+        { icon: "🎯", text: "Descobrir quanto custa o sonho", correct: true,
+          feedback: "Perfeito! Saber o preço é o primeiro passo de todo bom planejamento! Sem saber o quanto precisa, como vai juntar? 📊" },
+        { icon: "😴", text: "Esperar que aconteça por si mesmo", correct: false,
+          feedback: "Sonhos não se realizam sozinhos! O primeiro passo é saber quanto custa para poder planejar! 💪" },
+        { icon: "😢", text: "Desistir porque parece difícil", correct: false,
+          feedback: "Nunca desista! Todo sonho pode ser realizado com um bom plano e dedicação! Vamos planejar juntos! 🌟" }
+      ]
+    }
+  },
+ 
+  {
+    id: 42, trail: 5, place: "park", order: 2,
+    title: "Fazendo as contas",
+    character: "aninha",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "A Aninha descobriu que a bicicleta custa R$120. Ela recebe R$10 de mesada por semana. Ela quer calcular quantas semanas precisa guardar.",
+      question: "Quantas semanas a Aninha precisa guardar toda a mesada?",
+      choices: [
+        { icon: "📅", text: "6 semanas", correct: false, feedback: "6 × R$10 = R$60. Ainda falta metade! São 12 semanas para chegar em R$120! 🔢" },
+        { icon: "📅", text: "12 semanas (3 meses)", correct: true, feedback: "Isso! 12 × R$10 = R$120. Em 3 meses, guardando toda a mesada, a Aninha terá a bicicleta! 🚲🎉" },
+        { icon: "📅", text: "20 semanas", correct: false, feedback: "20 × R$10 = R$200, mais do que precisa! São apenas 12 semanas! 🔢" }
+      ]
+    }
+  },
+ 
+  {
+    id: 43, trail: 5, place: "park", order: 3,
+    title: "O cofrinho do sonho",
+    character: "caio",
+    coinsReward: 15,
+    type: "piggy",
+    content: {
+      story: "O Caio decidiu criar um cofrinho especial para seu sonho: uma bicicleta vermelha! Cada moeda no cofrinho é um passo mais perto do sonho. Ajude-o!",
+      question: "Clique para guardar moedas no cofrinho do sonho! Meta: 25!",
+      target: 25
+    }
+  },
+ 
+  {
+    id: 44, trail: 5, place: "park", order: 4,
+    title: "Resistir pensando no sonho",
+    character: "dede",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Dedé está guardando para seu sonho: um jogo de futebol. Mas na escola passaram um sorvete delicioso por R$3. O dinheiro que ele tem é para o sonho...",
+      question: "O Dedé deve comprar o sorvete?",
+      choices: [
+        { icon: "💪", text: "Não, o dinheiro é para o sonho e ele vai resistir!", correct: true,
+          feedback: "Força de vontade! Pensar no sonho ajuda a resistir tentações! O Dedé vai conseguir o jogo logo! ⚽🏆" },
+        { icon: "🍦", text: "Sim, sorvete é gostoso e ele merece!", correct: false,
+          feedback: "O sorvete até que vale, mas o sonho é maior! Quando resistir, o Dedé vai sentir um orgulho imenso! 💪" },
+        { icon: "🤝", text: "Pedir para um amigo pagar e devolver depois", correct: false,
+          feedback: "Dívidas podem complicar amizades! Melhor resistir com a força do sonho em mente! ⭐" }
+      ]
+    }
+  },
+ 
+  {
+    id: 45, trail: 5, place: "park", order: 5,
+    title: "Planejamento com a família",
+    character: "aninha",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "A Aninha mostrou seu planejamento para a mãe. A mãe ficou tão orgulhosa que disse: 'Que tal a família planejar uma viagem juntos?' Que ideia incrível!",
+      question: "Por que planejar em família é ainda melhor?",
+      choices: [
+        { icon: "👨‍👩‍👧", text: "Todos contribuem, todos decidem e todos se comprometem juntos", correct: true,
+          feedback: "Maravilha! Planejar em família une todo mundo num objetivo comum. Cada um contribui e todos comemoram juntos! 💛" },
+        { icon: "👤", text: "Cada um planeja sozinho, é mais fácil", correct: false,
+          feedback: "Planejar em família multiplica as forças e cria momentos especiais! Objetivos compartilhados unem famílias! 🏠❤️" },
+        { icon: "😴", text: "Não precisa planejar, as coisas acontecem naturalmente", correct: false,
+          feedback: "Planejar em conjunto torna os sonhos muito mais prováveis de acontecer! Família que planeja unida, chega junto! 🌟" }
+      ]
+    }
+  },
+ 
+  // Missões 46-50
+  {
+    id: 46, trail: 5, place: "park", order: 6,
+    title: "Mesada inteligente",
+    character: "miguel",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Miguel recebe R$20 de mesada. O pai ensinou a divisão mágica: parte para guardar, parte para gastar, parte para ajudar!",
+      question: "Qual é a melhor forma de dividir a mesada?",
+      choices: [
+        { icon: "💰", text: "Gastar tudo, todo mês", correct: false, feedback: "Gastar tudo não deixa nada para sonhos ou emergências! A divisão mágica é muito melhor! 🤔" },
+        { icon: "⚖️", text: "Guardar uma parte, gastar uma parte, ajudar uma parte", correct: true,
+          feedback: "A DIVISÃO MÁGICA! Guardar + Gastar + Ajudar = equilíbrio perfeito! Você aprendeu o segredo da mesada inteligente! 🏆" },
+        { icon: "🐷", text: "Guardar tudo e nunca gastar nada", correct: false,
+          feedback: "Guardar é ótimo, mas parte da mesada é para você aproveitar e outra parte pode ajudar alguém! Equilíbrio! ⚖️" }
+      ]
+    }
+  },
+ 
+  {
+    id: 47, trail: 5, place: "park", order: 7,
+    title: "Ajudando em casa",
+    character: "miguel",
+    coinsReward: 12,
+    type: "story_choice",
+    content: {
+      story: "O Miguel descobriu que pode ganhar dinheiro EXTRA ajudando em casa: arrumar quarto, lavar louça, varrer. E aí pode poupar mais rápido!",
+      question: "Ajudar em casa para ganhar um pouco mais é uma boa ideia?",
+      choices: [
+        { icon: "🤩", text: "Sim! Aprende responsabilidade e pode guardar mais", correct: true,
+          feedback: "PERFEITO! Ajudar em casa ensina responsabilidade, valorização do trabalho e ainda acelera o sonho! 💪⭐" },
+        { icon: "😤", text: "Não, tarefas de casa são obrigação dos adultos", correct: false,
+          feedback: "Ajudar em casa é de todos! E quando há recompensa por isso, você aprende o valor do trabalho desde cedo! 😊" },
+        { icon: "🛋️", text: "Melhor esperar os pais darem mais mesada", correct: false,
+          feedback: "Esperar pode demorar mais! Tomar iniciativa e ajudar em casa mostra maturidade e acelera os sonhos! 🌟" }
+      ]
+    }
+  },
+ 
+  {
+    id: 48, trail: 5, place: "park", order: 8,
+    title: "Cofrinho cheio!",
+    character: "caio",
+    coinsReward: 20,
+    type: "piggy",
+    content: {
+      story: "O Caio está na reta final! O cofrinho está quase cheio e o sonho está quase ao alcance! Um último esforço! Meta: 30 moedas!",
+      question: "Último desafio do cofrinho! Meta: 30 moedas!",
+      target: 30
+    }
+  },
+ 
+  {
+    id: 49, trail: 5, place: "park", order: 9,
+    title: "O sonho se realizou!",
+    character: "aninha",
+    coinsReward: 20,
+    type: "story_choice",
+    content: {
+      story: "A Aninha está radiante! Depois de semanas guardando, planejando e resistindo a impulsos, ela tem todo o dinheiro da bicicleta! O momento chegou!",
+      question: "Como a Aninha deve se sentir ao realizar seu sonho com esforço próprio?",
+      choices: [
+        { icon: "🌟", text: "Muito orgulhosa e feliz! O esforço valeu muito!", correct: true,
+          feedback: "É EXATAMENTE ISSO! A conquista com esforço próprio tem um gosto especial! A bicicleta vai ser muito mais especial porque foi planejada! 🚲🏆🌟" },
+        { icon: "😐", text: "Normal, qualquer um consegue isso fácil", correct: false,
+          feedback: "Não é fácil! Planejar, guardar e resistir a impulsos por semanas é uma conquista INCRÍVEL! Orgulho total! 🎉" },
+        { icon: "😔", text: "Demorou muito, não valeu", correct: false,
+          feedback: "Valeu SIM! O processo de planejar e conquistar ensinou muito mais do que a bicicleta em si! 💛" }
+      ]
+    }
+  },
+ 
+  {
+    id: 50, trail: 5, place: "park", order: 10,
+    title: "Guardião do Dinheiro!",
+    character: "lucas",
+    coinsReward: 50,
+    type: "story_choice",
+    content: {
+      story: "PARABÉNS! O Professor Lucas, o Seu Bento, a Dona Lúcia e todos os personagens aparecem para comemorar! Você concluiu todas as 5 trilhas! Você é o GUARDIÃO DO DINHEIRO!",
+      question: "Qual é o maior segredo que você aprendeu no Financinhas?",
+      choices: [
+        { icon: "🏆", text: "Com planejamento, economia e escolhas conscientes, qualquer sonho é possível!", correct: true,
+          feedback: "🎊🎊🎊 GUARDIÃO DO DINHEIRO SUPREMO! Você dominou as 5 trilhas! Planejamento + Economia + Consciência = VIDA FINANCEIRA INCRÍVEL! Você é um exemplo! 🏆🌟💰🌍" },
+        { icon: "💸", text: "Dinheiro é tudo e quem tem mais dinheiro é mais feliz", correct: false,
+          feedback: "Dinheiro é uma ferramenta importante, mas felicidade vem de escolhas sábias, relações e conquistas! Refaça e acerte! 💛" },
+        { icon: "😴", text: "É muito difícil, melhor não pensar no dinheiro", correct: false,
+          feedback: "Não é difícil quando você aprende! E você aprendeu tudo! Refaça e mostre que é o Guardião! 💪" }
+      ]
+    }
+  }
+ 
+];
+ 
+// ═══════════════════════════════════════
+// FINANCINHAS – SISTEMA DE AVATAR
+// Criação estilo The Sims
+// ═══════════════════════════════════════
+ 
+const AvatarSystem = {
+  current: {
+    skinColor: '#FDDBB4',
+    skinId: 'skin1',
+    hairStyle: 'hair1',
+    hairColor: '#1a0a00',
+    clothesStyle: 'clothes1',
+    clothesColor: '#4FC3F7',
+    eyeStyle: 'eyes1',
+    accessory: 'none'
+  },
+ 
+  hairStyles: {
+    hair1: { name: 'Curto', shape: 'border-radius: 50% 50% 30% 30%; height:32px;' },
+    hair2: { name: 'Longo', shape: 'border-radius: 50% 50% 20% 20%; height:45px;' },
+    hair3: { name: 'Enrolado', shape: 'border-radius: 50%; height:38px; width:85px;' },
+    hair4: { name: 'Trancinha', shape: 'border-radius: 60% 60% 40% 40%; height:36px;' },
+    hair5: { name: 'Careca', shape: 'border-radius: 50%; height:10px; opacity:0.3;' }
+  },
+ 
+  eyeEmojis: {
+    eyes1: '😊', eyes2: '😄', eyes3: '🤩', eyes4: '😎'
+  },
+ 
+  accessoryEmojis: {
+    none: '', glasses: '🕶️', hat: '🎩', crown: '👑', bow: '🎀'
+  },
+ 
+  render() {
+    const c = this.current;
+ 
+    // Corpo / pele
+    const body = document.getElementById('av-body');
+    if (body) {
+      body.style.background = c.skinColor;
+      body.style.border = `3px solid ${this.darken(c.skinColor)}`;
+    }
+ 
+    // Rosto
+    const face = document.getElementById('av-face');
+    if (face) face.style.background = c.skinColor;
+ 
+    // Olhos
+    const eyes = document.getElementById('av-eyes');
+    if (eyes) eyes.textContent = this.eyeEmojis[c.eyeStyle] || '😊';
+ 
+    // Boca
+    const mouth = document.getElementById('av-mouth');
+    if (mouth) mouth.textContent = '😄';
+ 
+    // Cabelo
+    const hair = document.getElementById('av-hair');
+    if (hair) {
+      hair.style.background = c.hairColor;
+      const hs = this.hairStyles[c.hairStyle];
+      if (hs) {
+        const parts = hs.shape.split(';').filter(Boolean);
+        parts.forEach(p => {
+          const [prop, val] = p.split(':').map(s => s.trim());
+          if (prop && val) {
+            const camel = prop.replace(/-([a-z])/g, (_, l) => l.toUpperCase());
+            hair.style[camel] = val;
+          }
+        });
+      }
+    }
+ 
+    // Roupas
+    const clothes = document.getElementById('av-clothes');
+    if (clothes) {
+      clothes.style.background = c.clothesColor;
+      clothes.style.border = `2px solid ${this.darken(c.clothesColor)}`;
+    }
+ 
+    // Acessório
+    const acc = document.getElementById('av-accessory');
+    if (acc) {
+      acc.textContent = this.accessoryEmojis[c.accessory] || '';
+      if (c.accessory === 'glasses') {
+        acc.style.top = '25px';
+        acc.style.fontSize = '1.1rem';
+      } else if (c.accessory === 'hat' || c.accessory === 'crown') {
+        acc.style.top = '-8px';
+        acc.style.fontSize = '1.6rem';
+      } else if (c.accessory === 'bow') {
+        acc.style.top = '-4px';
+        acc.style.right = '-8px';
+        acc.style.left = 'auto';
+        acc.style.transform = 'none';
+        acc.style.fontSize = '1.3rem';
+      } else {
+        acc.style.top = '0';
+        acc.style.left = '50%';
+        acc.style.right = 'auto';
+        acc.style.transform = 'translateX(-50%)';
+      }
+    }
+  },
+ 
+  darken(hex) {
+    const num = parseInt(hex.slice(1), 16);
+    const r = Math.max(0, (num >> 16) - 30);
+    const g = Math.max(0, ((num >> 8) & 0xff) - 30);
+    const b = Math.max(0, (num & 0xff) - 30);
+    return `#${((r << 16) | (g << 8) | b).toString(16).padStart(6, '0')}`;
+  },
+ 
+  // Renderizar avatar como emoji no HUD (simplificado)
+  getHudEmoji() {
+    const bodyColors = {
+      skin1: '🧒', skin2: '🧒', skin3: '👦', skin4: '👧', skin5: '🧑'
+    };
+    return bodyColors[this.current.skinId] || '🧒';
+  },
+ 
+  // Salvar avatar no storage
+  save() {
+    try {
+      localStorage.setItem('financinhas_avatar', JSON.stringify(this.current));
+    } catch(e) {}
+  },
+ 
+  // Carregar avatar do storage
+  load() {
+    try {
+      const saved = localStorage.getItem('financinhas_avatar');
+      if (saved) {
+        this.current = { ...this.current, ...JSON.parse(saved) };
+      }
+    } catch(e) {}
+  }
+};
+ 
+// ── Funções globais chamadas pelo HTML ──
+ 
+function setSkin(btn, color, id) {
+  AvatarSystem.current.skinColor = color;
+  AvatarSystem.current.skinId = id;
+  document.querySelectorAll('#skin-picker .skin-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  AvatarSystem.render();
+}
+ 
+function setHair(btn, style) {
+  AvatarSystem.current.hairStyle = style;
+  document.querySelectorAll('#hair-picker .item-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  AvatarSystem.render();
+}
+ 
+function setHairColor(btn, color) {
+  AvatarSystem.current.hairColor = color;
+  document.querySelectorAll('#hair-color-picker .skin-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  AvatarSystem.render();
+}
+ 
+function setClothes(btn, style, color) {
+  AvatarSystem.current.clothesStyle = style;
+  AvatarSystem.current.clothesColor = color;
+  document.querySelectorAll('#clothes-picker .item-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  AvatarSystem.render();
+}
+ 
+function setEyes(btn, style) {
+  AvatarSystem.current.eyeStyle = style;
+  document.querySelectorAll('#eyes-picker .item-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  AvatarSystem.render();
+}
+ 
+function setAccessory(btn, acc) {
+  AvatarSystem.current.accessory = acc;
+  document.querySelectorAll('#acc-picker .item-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  AvatarSystem.render();
+}
+ 
+function saveAvatar() {
+  AvatarSystem.save();
+  showToast('Avatar salvo! 🎉');
+  // Atualiza HUD
+  const hudAvatar = document.getElementById('hud-avatar');
+  if (hudAvatar) hudAvatar.textContent = AvatarSystem.getHudEmoji();
+  showScreen('screen-city');
+}
+ 
+// ═══════════════════════════════════════
+// FINANCINHAS – MOTOR DO JOGO
+// Login, Progresso, Tempo de Tela,
+// Painel dos Pais, Sistema de Moedas
+// ═══════════════════════════════════════
+ 
+// ── Estado Global ──
+let GAME_STATE = {
+  user: null,        // { email, parentName, childName, grade, password }
+  coins: 0,
+  completedMissions: [],   // IDs das missões concluídas
+  achievements: [],        // IDs das conquistas
+  dream: null,             // { name, cost }
+  sessionStart: null,      // timestamp de início da sessão
+  sessionMinutes: 0,       // minutos jogados HOJE
+  screenTimeWarned: false,
+  trailProgress: { 1:0, 2:0, 3:0, 4:0, 5:0 }
+};
+ 
+// ── Inicialização ──────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  loadGame();
+  AvatarSystem.load();
+  AvatarSystem.render();
+ 
+  // Timer de tempo de tela
+  setInterval(checkScreenTime, 60000); // checa a cada minuto
+  GAME_STATE.sessionStart = Date.now();
+});
+ 
+// ── ARMAZENAMENTO ──────────────────────
+function saveGame() {
+  try {
+    localStorage.setItem('financinhas_state', JSON.stringify(GAME_STATE));
+  } catch(e) {}
+}
+ 
+function loadGame() {
+  try {
+    const saved = localStorage.getItem('financinhas_state');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      GAME_STATE = { ...GAME_STATE, ...parsed };
+      // Reseta tempo de tela diário
+      const today = new Date().toDateString();
+      const lastDay = localStorage.getItem('financinhas_lastday');
+      if (lastDay !== today) {
+        GAME_STATE.sessionMinutes = 0;
+        GAME_STATE.screenTimeWarned = false;
+        localStorage.setItem('financinhas_lastday', today);
+        saveGame();
+      }
+    }
+  } catch(e) {}
+}
+ 
+// ── NAVEGAÇÃO DE TELAS ─────────────────
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const screen = document.getElementById(id);
+  if (screen) screen.classList.add('active');
+}
+ 
+// Alterna entre formulário de login e cadastro
+function toggleForms() {
+  const loginForm    = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  if (!loginForm || !registerForm) return;
+  loginForm.classList.toggle('hidden');
+  registerForm.classList.toggle('hidden');
+}
+ 
+// ── LOGIN ──────────────────────────────
+function doLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  if (!email || !pass) { showToast('Preencha e-mail e senha!'); return; }
+ 
+  const stored = loadUser(email);
+  if (!stored) { showToast('Conta não encontrada. Cadastre-se!'); return; }
+  if (stored.password !== pass) { showToast('Senha incorreta!'); return; }
+ 
+  GAME_STATE.user = stored;
+  loadUserProgress(email);
+  enterGame();
+}
+ 
+function doRegister() {
+  const parent = document.getElementById('reg-parent').value.trim();
+  const email  = document.getElementById('reg-email').value.trim();
+  const pass   = document.getElementById('reg-pass').value;
+  const child  = document.getElementById('reg-child').value.trim();
+  const grade  = document.getElementById('reg-grade').value;
+ 
+  if (!parent||!email||!pass||!child||!grade) { showToast('Preencha todos os campos!'); return; }
+  if (pass.length < 4) { showToast('Senha precisa ter pelo menos 4 caracteres!'); return; }
+ 
+  const user = { parentName: parent, email, password: pass, childName: child, grade };
+  saveUser(email, user);
+  GAME_STATE.user = user;
+  GAME_STATE.coins = 0;
+  GAME_STATE.completedMissions = [];
+  saveGame();
+  showToast(`Bem-vindo(a), ${child}! 🎉`);
+  setTimeout(() => showScreen('screen-avatar'), 800);
+}
+ 
+function saveUser(email, data) {
+  try { localStorage.setItem('fu_user_' + email, JSON.stringify(data)); } catch(e) {}
+}
+function loadUser(email) {
+  try {
+    const d = localStorage.getItem('fu_user_' + email);
+    return d ? JSON.parse(d) : null;
+  } catch(e) { return null; }
+}
+function loadUserProgress(email) {
+  const saved = localStorage.getItem('financinhas_state');
+  if (saved) {
+    const p = JSON.parse(saved);
+    if (p.user && p.user.email === email) {
+      GAME_STATE = { ...GAME_STATE, ...p };
+    }
+  }
+}
+ 
+function enterGame() {
+  if (!GAME_STATE.user) return;
+  updateHUD();
+  updateDreamBar();
+  updatePlaceBadges();
+  showScreen('screen-city');
+}
+ 
+// ── HUD ────────────────────────────────
+function updateHUD() {
+  const name = document.getElementById('hud-name');
+  const coins = document.getElementById('hud-coins');
+  if (name && GAME_STATE.user) name.textContent = GAME_STATE.user.childName;
+  if (coins) coins.textContent = GAME_STATE.coins;
+  // Avatar no HUD
+  const hud = document.getElementById('hud-avatar');
+  if (hud) hud.textContent = AvatarSystem.getHudEmoji();
+}
+ 
+// ── MOEDAS ─────────────────────────────
+function addCoins(amount) {
+  GAME_STATE.coins += amount;
+  saveGame();
+  updateHUD();
+  updateDreamBar();
+  // Checa conquistas de moedas
+  if (GAME_STATE.coins >= 50) grantAchievement('saver');
+}
+ 
+// ── MISSÕES CONCLUÍDAS ─────────────────
+function completeMission(missionId, coinsEarned) {
+  if (!GAME_STATE.completedMissions.includes(missionId)) {
+    GAME_STATE.completedMissions.push(missionId);
+    addCoins(coinsEarned);
+    updateTrailProgress();
+    updatePlaceBadges();
+    if (GAME_STATE.completedMissions.length === 1) grantAchievement('first_mission');
+    saveGame();
+  }
+}
+ 
+function updateTrailProgress() {
+  MISSIONS.forEach(m => {
+    if (GAME_STATE.completedMissions.includes(m.id)) {
+      const trail = m.trail;
+      const trailMissions = MISSIONS.filter(x => x.trail === trail);
+      const done = trailMissions.filter(x => GAME_STATE.completedMissions.includes(x.id)).length;
+      GAME_STATE.trailProgress[trail] = Math.round((done / trailMissions.length) * 100);
+    }
+  });
+ 
+  // Conquistas por trilha completa
+  for (let t = 1; t <= 5; t++) {
+    if (GAME_STATE.trailProgress[t] === 100) {
+      grantAchievement('trail' + t);
+      if (t === 4) grantAchievement('eco_hero');
+    }
+  }
+}
+ 
+function updatePlaceBadges() {
+  GAME_DATA.places && Object.entries(GAME_DATA.places).forEach(([key, place]) => {
+    const badge = document.getElementById('badge-' + key);
+    if (!badge) return;
+    const trailMissions = MISSIONS.filter(m => m.place === key);
+    const done = trailMissions.filter(m => GAME_STATE.completedMissions.includes(m.id)).length;
+    if (done > 0) {
+      badge.textContent = done === trailMissions.length ? '✓' : done + '/' + trailMissions.length;
+      badge.style.display = 'flex';
+    }
+  });
+}
+ 
+// ── SONHO ──────────────────────────────
+function updateDreamBar() {
+  const dream = GAME_STATE.dream;
+  const nameEl = document.getElementById('dream-name');
+  const fill = document.getElementById('dream-fill');
+  const pct = document.getElementById('dream-pct');
+  if (!dream) return;
+  if (nameEl) nameEl.textContent = dream.name;
+  const percent = Math.min(100, Math.round((GAME_STATE.coins / dream.cost) * 100));
+  if (fill) fill.style.width = percent + '%';
+  if (pct) pct.textContent = percent + '%';
+  if (percent >= 100) {
+    showToast('🎉 Você juntou moedas suficientes para o seu sonho!');
+    grantAchievement('dreamer');
+  }
+}
+ 
+function showDreamSetup() {
+  openModal('modal-dream');
+}
+ 
+function saveDream() {
+  const pass = document.getElementById('dream-parent-pass').value;
+  const item = document.getElementById('dream-item').value.trim();
+  const cost = parseInt(document.getElementById('dream-cost').value);
+ 
+  if (!pass || !item || !cost) { showToast('Preencha todos os campos!'); return; }
+  if (!GAME_STATE.user || pass !== GAME_STATE.user.password) {
+    showToast('Senha incorreta!'); return;
+  }
+  if (cost < 1) { showToast('Informe um valor válido em Moedas Coop!'); return; }
+ 
+  GAME_STATE.dream = { name: item, cost };
+  saveGame();
+  updateDreamBar();
+  updateParentPanel();
+  closeModal('modal-dream');
+  grantAchievement('dreamer');
+  showToast(`Sonho "${item}" cadastrado! 🌟`);
+  // Limpa campos
+  document.getElementById('dream-parent-pass').value = '';
+  document.getElementById('dream-item').value = '';
+  document.getElementById('dream-cost').value = '';
+}
+ 
+// ── PAINEL DOS PAIS ────────────────────
+function showParentPanel() {
+  updateParentPanel();
+  showScreen('screen-parent');
+}
+ 
+function updateParentPanel() {
+  if (!GAME_STATE.user) return;
+ 
+  document.getElementById('parent-child-name').textContent = GAME_STATE.user.childName || '-';
+  document.getElementById('stat-missions').textContent = GAME_STATE.completedMissions.length;
+  document.getElementById('stat-coins').textContent = GAME_STATE.coins;
+ 
+  // Trilhas concluídas
+  const trailsDone = Object.values(GAME_STATE.trailProgress).filter(p => p === 100).length;
+  document.getElementById('stat-trails').textContent = trailsDone + '/5';
+ 
+  // Tempo hoje
+  const mins = GAME_STATE.sessionMinutes + Math.round((Date.now() - GAME_STATE.sessionStart) / 60000);
+  document.getElementById('stat-time').textContent = mins + 'min';
+ 
+  // Sonho
+  const dreamDiv = document.getElementById('dream-display');
+  if (GAME_STATE.dream) {
+    const pct = Math.min(100, Math.round((GAME_STATE.coins / GAME_STATE.dream.cost) * 100));
+    dreamDiv.innerHTML = `
+      <p><strong>${GAME_STATE.dream.name}</strong></p>
+      <p>Necessário: ${GAME_STATE.dream.cost} Moedas Coop</p>
+      <p>Atual: ${GAME_STATE.coins} moedas (${pct}%)</p>
+      <div class="skill-bar" style="margin-top:8px">
+        <div class="skill-fill" style="width:${pct}%"></div>
+      </div>
+    `;
+  }
+ 
+  // Habilidades
+  const sk = [
+    GAME_STATE.trailProgress[1] || 0,
+    GAME_STATE.trailProgress[2] || 0,
+    GAME_STATE.trailProgress[3] || 0,
+    GAME_STATE.trailProgress[4] || 0,
+    GAME_STATE.trailProgress[5] || 0
+  ];
+  sk.forEach((v, i) => {
+    const el = document.getElementById('sk' + (i+1));
+    if (el) el.style.width = v + '%';
+  });
+ 
+  // Conquistas
+  const achList = document.getElementById('achievements-list');
+  if (achList) {
+    if (GAME_STATE.achievements.length === 0) {
+      achList.innerHTML = '<p style="color:#888;font-size:0.9rem">Nenhuma conquista ainda. Jogue para ganhar!</p>';
+    } else {
+      achList.innerHTML = GAME_STATE.achievements.map(id => {
+        const a = GAME_DATA.achievements.find(x => x.id === id);
+        return a ? `<div class="achievement-item">
+          <div class="achievement-icon">${a.icon}</div>
+          <div class="achievement-text">
+            <strong>${a.title}</strong>
+            <span>${a.desc}</span>
+          </div>
+        </div>` : '';
+      }).join('');
+    }
+  }
+}
+ 
+function showProgress() {
+  // Mostra progresso das trilhas inline
+  showToast('📊 Use o Painel dos Responsáveis para ver o progresso completo!');
+}
+ 
+// ── CONQUISTAS ─────────────────────────
+function grantAchievement(id) {
+  if (GAME_STATE.achievements.includes(id)) return;
+  const achievement = GAME_DATA.achievements.find(a => a.id === id);
+  if (!achievement) return;
+  GAME_STATE.achievements.push(id);
+  addCoins(achievement.coins);
+  saveGame();
+  showRewardModal(
+    achievement.icon + ' ' + achievement.title,
+    achievement.desc,
+    '+' + achievement.coins + ' 💰'
+  );
+}
+ 
+// ── TEMPO DE TELA ──────────────────────
+function checkScreenTime() {
+  if (!GAME_STATE.user) return;
+  const elapsed = Math.round((Date.now() - GAME_STATE.sessionStart) / 60000);
+  const total = GAME_STATE.sessionMinutes + elapsed;
+ 
+  if (total >= 60 && !GAME_STATE.screenTimeWarned) {
+    GAME_STATE.screenTimeWarned = true;
+    GAME_STATE.sessionMinutes = total;
+    saveGame();
+    openModal('modal-screentime');
+  }
+}
+ 
+function unlockScreenTime() {
+  const pass = document.getElementById('screentime-pass').value;
+  if (!pass) { showToast('Digite a senha do responsável!'); return; }
+  if (!GAME_STATE.user || pass !== GAME_STATE.user.password) {
+    showToast('Senha incorreta!'); return;
+  }
+  // Reseta contador por mais 60 min
+  GAME_STATE.sessionStart = Date.now();
+  GAME_STATE.sessionMinutes = 0;
+  GAME_STATE.screenTimeWarned = false;
+  saveGame();
+  document.getElementById('screentime-pass').value = '';
+  closeModal('modal-screentime');
+  showToast('Continuando o jogo! 🎮 Lembre-se de fazer pausas! 💧');
+}
+ 
+// ── MODAIS ─────────────────────────────
+function openModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('hidden');
+}
+ 
+function closeModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('hidden');
+}
+ 
+function showRewardModal(title, msg, coins) {
+  document.getElementById('reward-title').textContent = title;
+  document.getElementById('reward-msg').textContent = msg;
+  document.getElementById('reward-coins').textContent = coins;
+  openModal('modal-reward');
+}
+ 
+function showCompleteModal(msg, badge) {
+  document.getElementById('complete-msg').textContent = msg;
+  document.getElementById('earned-badge').textContent = badge || '';
+  openModal('modal-complete');
+}
+ 
+// ── TOAST ──────────────────────────────
+function showToast(msg) {
+  let toast = document.querySelector('.toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.className = 'toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+ 
+// ── NAVEGAR PARA LUGAR ─────────────────
+function enterPlace(placeKey) {
+  const place = GAME_DATA.places[placeKey];
+  if (!place) return;
+  if (!place.unlocked) {
+    showToast('🔒 Este lugar ainda está bloqueado! Complete mais missões!');
+    return;
+  }
+  // Pega missões disponíveis deste lugar
+  const placeMissions = MISSIONS.filter(m => m.place === placeKey);
+  const nextMission = placeMissions.find(m => !GAME_STATE.completedMissions.includes(m.id));
+ 
+  if (!nextMission) {
+    showToast(`✅ Você completou todas as missões em ${place.name}!`);
+    return;
+  }
+ 
+  launchMission(nextMission);
+}
+ 
+function backToCity() {
+  updateHUD();
+  updateDreamBar();
+  updatePlaceBadges();
+  showScreen('screen-city');
+}
+ 
+// ═══════════════════════════════════════
+// FINANCINHAS – MOTOR DE MISSÕES
+// story_choice, sort, piggy, budget
+// ═══════════════════════════════════════
+ 
+let CURRENT_MISSION = null;
+ 
+// ── Lançar missão ──────────────────────
+function launchMission(mission) {
+  CURRENT_MISSION = mission;
+  showScreen('screen-mission');
+ 
+  const char = GAME_DATA.characters[mission.character];
+  document.getElementById('mission-title').textContent = mission.title;
+  document.getElementById('mission-coins').textContent = GAME_STATE.coins;
+ 
+  const content = document.getElementById('mission-content');
+  content.innerHTML = '';
+ 
+  switch (mission.type) {
+    case 'story_choice': renderStoryChoice(mission, content, char); break;
+    case 'sort':         renderSort(mission, content, char);        break;
+    case 'piggy':        renderPiggy(mission, content, char);       break;
+    case 'budget':       renderBudget(mission, content, char);      break;
+    default:             renderStoryChoice(mission, content, char);
+  }
+}
+ 
+// ══════════════════════════════════════
+// TIPO 1: HISTÓRIA + ESCOLHA MÚLTIPLA
+// ══════════════════════════════════════
+function renderStoryChoice(mission, container, char) {
+  const c = mission.content;
+  const div = document.createElement('div');
+  div.className = 'mission-card';
+  div.innerHTML = `
+    <div class="mission-char">${char ? char.emoji : '🧒'}</div>
+    <div class="mission-char-name">${char ? char.name : ''}</div>
+    <div class="mission-story">${c.story}</div>
+    <div class="mission-question">${c.question}</div>
+    <div class="mission-choices" id="choices-wrap">
+      ${c.choices.map((ch, i) => `
+        <button class="choice-btn" id="choice-${i}" onclick="handleChoice(${i})">
+          <span class="choice-icon">${ch.icon}</span>
+          <span>${ch.text}</span>
+        </button>
+      `).join('')}
+    </div>
+    <div id="feedback-area"></div>
+    <div id="next-btn-area"></div>
+  `;
+  container.appendChild(div);
+}
+ 
+let choiceAnswered = false;
+ 
+function handleChoice(index) {
+  if (choiceAnswered) return;
+  choiceAnswered = true;
+ 
+  const m = CURRENT_MISSION;
+  const choice = m.content.choices[index];
+  const btn = document.getElementById('choice-' + index);
+  const feedback = document.getElementById('feedback-area');
+  const nextArea = document.getElementById('next-btn-area');
+ 
+  // Marca resposta
+  btn.classList.add(choice.correct ? 'correct' : 'wrong');
+ 
+  // Mostra feedback
+  feedback.innerHTML = `
+    <div class="feedback-box ${choice.correct ? 'correct' : 'wrong'}">
+      <strong>${choice.correct ? '✅ Muito bem!' : '💭 Quase!'}</strong>
+      <p>${choice.feedback}</p>
+    </div>
+  `;
+ 
+  // Botão continuar
+  const coinsEarned = choice.correct ? m.coinsReward : Math.floor(m.coinsReward * 0.3);
+  nextArea.innerHTML = `
+    <button class="btn-primary" style="margin-top:16px" onclick="finishMission(${m.id}, ${coinsEarned}, '${choice.correct}')">
+      ${choice.correct ? '🌟 Próxima missão!' : '💪 Continuar assim!'}
+    </button>
+  `;
+ 
+  // Animação nos botões errados
+  if (choice.correct) {
+    document.querySelectorAll('.choice-btn').forEach((b, i) => {
+      if (i !== index && !m.content.choices[i].correct) {
+        b.style.opacity = '0.4';
+      }
+    });
+  }
+ 
+  choiceAnswered = false; // Permite clicar em continuar
+}
+ 
+// ══════════════════════════════════════
+// TIPO 2: CLASSIFICAÇÃO (SORT/DRAG)
+// ══════════════════════════════════════
+function renderSort(mission, container, char) {
+  const c = mission.content;
+  const div = document.createElement('div');
+  div.className = 'mission-card';
+ 
+  const itemsHTML = c.items.map(item => `
+    <div class="sort-item" id="sort-item-${item.id}" data-id="${item.id}" data-cat="${item.category !== undefined ? item.category : ''}"
+      onclick="handleSortClick('${item.id}')">
+      <span>${item.emoji}</span>
+      <span>${item.name}</span>
+    </div>
+  `).join('');
+ 
+  const colsHTML = c.categories.map((cat, i) => `
+    <div class="sort-col">
+      <div class="sort-col-title">${cat}</div>
+      <div class="sort-drop-zone" id="zone-${i}" data-zone="${i}"></div>
+    </div>
+  `).join('');
+ 
+  div.innerHTML = `
+    <div class="mission-char">${char ? char.emoji : '🧒'}</div>
+    <div class="mission-char-name">${char ? char.name : ''}</div>
+    <div class="mission-story">${c.story}</div>
+    <div class="mission-question">${c.question}</div>
+    <div class="sort-items" id="sort-source">${itemsHTML}</div>
+    <div class="sort-columns">${colsHTML}</div>
+    <div id="sort-feedback"></div>
+    <div id="sort-next"></div>
+  `;
+  container.appendChild(div);
+}
+ 
+let selectedSortItem = null;
+ 
+function handleSortClick(itemId) {
+  const item = document.getElementById('sort-item-' + itemId);
+  if (!item) return;
+ 
+  if (selectedSortItem && selectedSortItem.id === item.id) {
+    // Deselect
+    item.style.border = '2px solid #e0e0e0';
+    selectedSortItem = null;
+    return;
+  }
+ 
+  // Check if clicking a zone zone
+  if (item.dataset.inzone !== undefined) {
+    // Move back to source
+    const source = document.getElementById('sort-source');
+    if (source) {
+      item.style.border = '2px solid #e0e0e0';
+      item.style.background = '#fff';
+      delete item.dataset.inzone;
+      source.appendChild(item);
+    }
+    selectedSortItem = null;
+    return;
+  }
+ 
+  // Select item
+  if (selectedSortItem) selectedSortItem.style.border = '2px solid #e0e0e0';
+  selectedSortItem = item;
+  item.style.border = '2px solid var(--primary)';
+  item.style.background = 'var(--primary-light)';
+ 
+  // Show zone selection prompt
+  showToast('Agora clique na coluna onde quer colocar este item!');
+ 
+  // Add click to zones
+  document.querySelectorAll('.sort-drop-zone').forEach(zone => {
+    zone.onclick = () => dropItemInZone(zone);
+  });
+}
+ 
+function dropItemInZone(zone) {
+  if (!selectedSortItem) return;
+ 
+  zone.appendChild(selectedSortItem);
+  selectedSortItem.dataset.inzone = zone.dataset.zone;
+  selectedSortItem.style.border = '2px solid #e0e0e0';
+  selectedSortItem.style.background = '#fff';
+  selectedSortItem.onclick = () => handleSortClick(selectedSortItem.dataset.id);
+  selectedSortItem = null;
+ 
+  // Remove zone onclick
+  document.querySelectorAll('.sort-drop-zone').forEach(z => z.onclick = null);
+ 
+  // Check if all placed
+  const totalItems = CURRENT_MISSION.content.items.length;
+  const placed = document.querySelectorAll('[data-inzone]').length;
+  if (placed >= totalItems) {
+    checkSortAnswer();
+  }
+}
+ 
+function checkSortAnswer() {
+  const items = CURRENT_MISSION.content.items;
+  let correct = 0;
+ 
+  items.forEach(item => {
+    const el = document.getElementById('sort-item-' + item.id);
+    if (!el) return;
+    const placedZone = parseInt(el.dataset.inzone);
+    const expectedCat = item.category;
+    if (placedZone === expectedCat) {
+      correct++;
+      el.style.borderColor = '#4CAF50';
+      el.style.background = '#E8F5E9';
+    } else {
+      el.style.borderColor = '#f44336';
+      el.style.background = '#FFEBEE';
+    }
+  });
+ 
+  const total = items.length;
+  const pct = Math.round((correct / total) * 100);
+  const coinsEarned = Math.round(CURRENT_MISSION.coinsReward * (pct / 100));
+ 
+  document.getElementById('sort-feedback').innerHTML = `
+    <div class="feedback-box ${pct >= 70 ? 'correct' : 'wrong'}" style="margin-top:16px">
+      <strong>${pct >= 70 ? '🎉 Ótimo trabalho!' : '💭 Bom esforço!'}</strong>
+      <p>Você acertou ${correct} de ${total} itens (${pct}%)!</p>
+      ${pct < 100 ? '<p>Itens em vermelho precisam ir para a outra coluna!</p>' : ''}
+    </div>
+  `;
+ 
+  document.getElementById('sort-next').innerHTML = `
+    <button class="btn-primary" style="margin-top:12px" onclick="finishMission(${CURRENT_MISSION.id}, ${coinsEarned}, '${pct >= 70}')">
+      ${pct >= 70 ? '🌟 Continuar!' : '💪 Continuar assim!'}
+    </button>
+  `;
+}
+ 
+// ══════════════════════════════════════
+// TIPO 3: COFRINHO (CLIQUE)
+// ══════════════════════════════════════
+function renderPiggy(mission, container, char) {
+  const c = mission.content;
+  let count = 0;
+  const target = c.target || 10;
+ 
+  const div = document.createElement('div');
+  div.className = 'mission-card';
+  div.innerHTML = `
+    <div class="mission-char">${char ? char.emoji : '🧒'}</div>
+    <div class="mission-char-name">${char ? char.name : ''}</div>
+    <div class="mission-story">${c.story}</div>
+    <div class="piggy-game">
+      <div class="piggy-instructions">${c.question}</div>
+      <div class="coin-rain" id="coin-rain"></div>
+      <div class="piggy-icon" id="piggy-icon" onclick="clickPiggy()">🐷</div>
+      <div class="piggy-counter"><span id="piggy-count">0</span> / ${target}</div>
+      <div style="margin:12px 0">
+        <div class="skill-bar">
+          <div class="skill-fill" id="piggy-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+    <div id="piggy-next"></div>
+  `;
+  container.appendChild(div);
+ 
+  // Store count in closure
+  window._piggyCount = 0;
+  window._piggyTarget = target;
+}
+ 
+function clickPiggy() {
+  const target = window._piggyTarget || 10;
+  window._piggyCount = (window._piggyCount || 0) + 1;
+  const count = window._piggyCount;
+ 
+  // Update counter
+  const countEl = document.getElementById('piggy-count');
+  if (countEl) countEl.textContent = count;
+ 
+  // Update bar
+  const bar = document.getElementById('piggy-bar');
+  if (bar) bar.style.width = Math.min(100, (count / target) * 100) + '%';
+ 
+  // Animate piggy
+  const piggy = document.getElementById('piggy-icon');
+  if (piggy) {
+    piggy.style.transform = 'scale(1.2) rotate(10deg)';
+    setTimeout(() => { piggy.style.transform = 'scale(1) rotate(0)'; }, 200);
+  }
+ 
+  // Coin rain
+  spawnCoin();
+ 
+  // Check complete
+  if (count >= target) {
+    const nextArea = document.getElementById('piggy-next');
+    if (nextArea && !nextArea.innerHTML) {
+      nextArea.innerHTML = `
+        <div class="feedback-box correct" style="margin-top:12px">
+          <strong>🎉 Cofrinho cheio!</strong>
+          <p>Incrível! Você guardou ${target} moedas! É assim que poupadores campeões fazem!</p>
+        </div>
+        <button class="btn-primary" style="margin-top:12px" onclick="finishMission(${CURRENT_MISSION.id}, ${CURRENT_MISSION.coinsReward}, 'true')">
+          🌟 Continuar!
+        </button>
+      `;
+    }
+  }
+}
+ 
+function spawnCoin() {
+  const rain = document.getElementById('coin-rain');
+  if (!rain) return;
+  const coin = document.createElement('div');
+  coin.className = 'coin-particle';
+  coin.textContent = '💰';
+  coin.style.left = Math.random() * 80 + 10 + '%';
+  coin.style.animationDuration = (0.5 + Math.random() * 0.5) + 's';
+  rain.appendChild(coin);
+  setTimeout(() => coin.remove(), 1000);
+}
+ 
+// ══════════════════════════════════════
+// TIPO 4: ORÇAMENTO (BUDGET)
+// ══════════════════════════════════════
+let budgetSelected = [];
+let budgetTotal = 0;
+ 
+function renderBudget(mission, container, char) {
+  const c = mission.content;
+  budgetSelected = [];
+  budgetTotal = 0;
+ 
+  const div = document.createElement('div');
+  div.className = 'mission-card';
+  div.innerHTML = `
+    <div class="mission-char">${char ? char.emoji : '🧒'}</div>
+    <div class="mission-char-name">${char ? char.name : ''}</div>
+    <div class="mission-story">${c.story}</div>
+    <div class="budget-bar-wrap">
+      <div class="budget-label">
+        <span>💰 Orçamento: R$ ${c.budget.toFixed(2)}</span>
+        <span>Gasto: R$ <span id="budget-spent">0,00</span></span>
+      </div>
+      <div class="budget-bar">
+        <div class="budget-fill" id="budget-fill" style="width:0%"></div>
+      </div>
+    </div>
+    <p style="font-size:0.85rem;color:#888;margin-bottom:12px;text-align:center">${c.tip}</p>
+    <div class="shop-items">
+      ${c.items.map((item, i) => `
+        <div class="shop-item" id="shop-${i}" onclick="toggleBudgetItem(${i})">
+          <div class="shop-icon">${item.emoji}</div>
+          <div class="shop-name">${item.name}</div>
+          <div class="shop-price">R$ ${item.price.toFixed(2)}</div>
+          ${item.healthy !== undefined ? `<div style="font-size:0.7rem;color:${item.healthy ? '#4CAF50' : '#f44336'}">${item.healthy ? '✅ Saudável' : '⚠️'}</div>` : ''}
+        </div>
+      `).join('')}
+    </div>
+    <div id="budget-feedback" style="margin-top:16px"></div>
+    <button class="btn-primary" style="margin-top:12px" onclick="checkBudget()">
+      ✅ Confirmar escolhas!
+    </button>
+  `;
+  container.appendChild(div);
+}
+ 
+function toggleBudgetItem(index) {
+  const item = CURRENT_MISSION.content.items[index];
+  const el = document.getElementById('shop-' + index);
+  const budget = CURRENT_MISSION.content.budget;
+ 
+  if (budgetSelected.includes(index)) {
+    // Remove
+    budgetSelected = budgetSelected.filter(i => i !== index);
+    budgetTotal -= item.price;
+    el.classList.remove('selected');
+  } else {
+    // Add
+    if (budgetTotal + item.price > budget) {
+      showToast('⚠️ Isso ultrapassaria o orçamento!');
+      el.classList.add('unavailable');
+      setTimeout(() => el.classList.remove('unavailable'), 500);
+      return;
+    }
+    budgetSelected.push(index);
+    budgetTotal += item.price;
+    el.classList.add('selected');
+  }
+ 
+  // Update bar
+  const pct = (budgetTotal / budget) * 100;
+  const fill = document.getElementById('budget-fill');
+  const spent = document.getElementById('budget-spent');
+  if (fill) {
+    fill.style.width = Math.min(100, pct) + '%';
+    fill.className = 'budget-fill' + (pct > 100 ? ' over' : '');
+  }
+  if (spent) spent.textContent = budgetTotal.toFixed(2).replace('.', ',');
+}
+ 
+function checkBudget() {
+  const c = CURRENT_MISSION.content;
+  if (budgetSelected.length === 0) {
+    showToast('Escolha pelo menos um item!');
+    return;
+  }
+ 
+  const items = budgetSelected.map(i => c.items[i]);
+  const healthyCount = items.filter(i => i.healthy).length;
+  const withinBudget = budgetTotal <= c.budget;
+  const success = withinBudget && healthyCount >= Math.ceil(items.length / 2);
+ 
+  const feedback = document.getElementById('budget-feedback');
+  feedback.innerHTML = `
+    <div class="feedback-box ${success ? 'correct' : 'wrong'}">
+      <strong>${success ? '🎉 Ótima escolha!' : '💭 Bom esforço!'}</strong>
+      <p>Você escolheu: ${items.map(i => i.emoji + ' ' + i.name).join(', ')}</p>
+      <p>Total gasto: R$ ${budgetTotal.toFixed(2)} de R$ ${c.budget.toFixed(2)}</p>
+      ${!withinBudget ? '<p>⚠️ Atenção: você ultrapassou o orçamento!</p>' : ''}
+      ${healthyCount < Math.ceil(items.length / 2) ? '<p>💡 Tente incluir mais itens saudáveis da próxima vez!</p>' : ''}
+    </div>
+    <button class="btn-primary" style="margin-top:12px" onclick="finishMission(${CURRENT_MISSION.id}, ${success ? CURRENT_MISSION.coinsReward : Math.floor(CURRENT_MISSION.coinsReward * 0.5)}, '${success}')">
+      ${success ? '🌟 Continuar!' : '💪 Continuar!'}
+    </button>
+  `;
+ 
+  // Remove check button
+  const checkBtn = document.querySelector('.mission-content .btn-primary:not(#budget-feedback .btn-primary)');
+}
+ 
+// ══════════════════════════════════════
+// FINALIZAR MISSÃO
+// ══════════════════════════════════════
+function finishMission(missionId, coinsEarned, wasCorrect) {
+  completeMission(missionId, coinsEarned);
+ 
+  const mission = MISSIONS.find(m => m.id === missionId);
+  const isLastInTrail = mission && MISSIONS.filter(m => m.trail === mission.trail)
+    .every(m => GAME_STATE.completedMissions.includes(m.id));
+ 
+  // Update coins display in mission header
+  document.getElementById('mission-coins').textContent = GAME_STATE.coins;
+ 
+  // Verifica se é a última missão da trilha
+  if (isLastInTrail) {
+    showCompleteModal(
+      `Você concluiu a Trilha "${GAME_DATA.trails.find(t => t.id === mission.trail)?.name}"! 🎉`,
+      GAME_DATA.trails.find(t => t.id === mission.trail)?.icon + ' 🏆'
+    );
+  } else {
+    // Mostra toast simples e próxima missão
+    showToast(`+${coinsEarned} 💰 Moedas Coop ganhas!`);
+    setTimeout(() => {
+      // Avança para próxima missão do lugar
+      if (mission) {
+        const nextMission = MISSIONS.find(m =>
+          m.place === mission.place &&
+          m.order === mission.order + 1 &&
+          !GAME_STATE.completedMissions.includes(m.id)
+        );
+        if (nextMission) {
+          choiceAnswered = false;
+          launchMission(nextMission);
+        } else {
+          backToCity();
+        }
+      }
+    }, 1500);
+  }
+}
+ 
+</script>
 </body>
 </html>
  
